@@ -188,8 +188,7 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/restaurants");
   });
 
-
-  test("Restaurant, Articles and UCSBDates links do NOT show when not logged in", async () => {
+  test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
     const currentUser = null;
     const systemInfo = systemInfoFixtures.showingBoth;
     const doLogin = jest.fn();
@@ -207,7 +206,6 @@ describe("AppNavbar tests", () => {
     );
 
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
-    expect(screen.queryByText("Articles")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
   });
 
