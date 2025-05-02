@@ -32,7 +32,7 @@ describe("ArticlesForm tests", () => {
     expect(await screen.findByTestId("ArticlesForm-id")).toBeInTheDocument();
     expect(screen.getByTestId("ArticlesForm-id")).toHaveValue("1");
     expect(screen.getByTestId("ArticlesForm-title")).toHaveValue(
-      "UCSB Researchers Develop New Quantum Computing Platform"
+      "UCSB Researchers Develop New Quantum Computing Platform",
     );
   });
 
@@ -65,7 +65,9 @@ describe("ArticlesForm tests", () => {
       </Router>,
     );
 
-    expect(await screen.findByTestId("ArticlesForm-submit")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId("ArticlesForm-submit"),
+    ).toBeInTheDocument();
     const submitButton = screen.getByTestId("ArticlesForm-submit");
 
     fireEvent.click(submitButton);
@@ -127,7 +129,9 @@ describe("ArticlesForm tests", () => {
       </Router>,
     );
 
-    expect(await screen.findByTestId("ArticlesForm-cancel")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId("ArticlesForm-cancel"),
+    ).toBeInTheDocument();
     const cancelButton = screen.getByTestId("ArticlesForm-cancel");
 
     fireEvent.click(cancelButton);

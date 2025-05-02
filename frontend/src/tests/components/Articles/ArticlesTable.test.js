@@ -17,8 +17,22 @@ jest.mock("react-router-dom", () => ({
 describe("ArticlesTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["id", "Title", "URL", "Explanation", "Email", "Date Added"];
-  const expectedFields = ["id", "title", "url", "explanation", "email", "dateAdded"];
+  const expectedHeaders = [
+    "id",
+    "Title",
+    "URL",
+    "Explanation",
+    "Email",
+    "Date Added",
+  ];
+  const expectedFields = [
+    "id",
+    "title",
+    "url",
+    "explanation",
+    "email",
+    "dateAdded",
+  ];
   const testId = "ArticlesTable";
 
   test("renders empty table correctly", () => {
@@ -75,14 +89,32 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("UCSB Researchers Develop New Quantum Computing Platform");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-url`)).toHaveTextContent("https://www.news.ucsb.edu/2024/020961/quantum-computing-breakthrough");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-email`)).toHaveTextContent("physics.research@ucsb.edu");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-title`),
+    ).toHaveTextContent(
+      "UCSB Researchers Develop New Quantum Computing Platform",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-url`),
+    ).toHaveTextContent(
+      "https://www.news.ucsb.edu/2024/020961/quantum-computing-breakthrough",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-email`),
+    ).toHaveTextContent("physics.research@ucsb.edu");
 
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("UCSB's Student Farm Promotes Sustainable Agriculture");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-email`)).toHaveTextContent("student.farm@ucsb.edu");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-title`),
+    ).toHaveTextContent("UCSB's Student Farm Promotes Sustainable Agriculture");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-email`),
+    ).toHaveTextContent("student.farm@ucsb.edu");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -124,10 +156,20 @@ describe("ArticlesTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-title`)).toHaveTextContent("UCSB Researchers Develop New Quantum Computing Platform");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-title`)).toHaveTextContent("UCSB's Student Farm Promotes Sustainable Agriculture");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-title`),
+    ).toHaveTextContent(
+      "UCSB Researchers Develop New Quantum Computing Platform",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-title`),
+    ).toHaveTextContent("UCSB's Student Farm Promotes Sustainable Agriculture");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -155,7 +197,9 @@ describe("ArticlesTable tests", () => {
     ).toHaveTextContent("1");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-title`),
-    ).toHaveTextContent("UCSB Researchers Develop New Quantum Computing Platform");
+    ).toHaveTextContent(
+      "UCSB Researchers Develop New Quantum Computing Platform",
+    );
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -198,7 +242,9 @@ describe("ArticlesTable tests", () => {
     ).toHaveTextContent("1");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-title`),
-    ).toHaveTextContent("UCSB Researchers Develop New Quantum Computing Platform");
+    ).toHaveTextContent(
+      "UCSB Researchers Develop New Quantum Computing Platform",
+    );
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,

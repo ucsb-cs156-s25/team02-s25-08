@@ -2,14 +2,17 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/articlesUtils";
+import {
+  cellToAxiosParamsDelete,
+  onDeleteSuccess,
+} from "main/utils/articlesUtils";
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
 export default function ArticlesTable({
   articles,
   currentUser,
-  testIdPrefix = "ArticlesTable"
+  testIdPrefix = "ArticlesTable",
 }) {
   const navigate = useNavigate();
 
@@ -21,7 +24,7 @@ export default function ArticlesTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/articles/all"]
+    ["/api/articles/all"],
   );
   // Stryker restore all
 
@@ -54,17 +57,15 @@ export default function ArticlesTable({
     {
       Header: "Date Added",
       accessor: "dateAdded",
-    }
+    },
   ];
 
   if (hasRole(currentUser, "ROLE_ADMIN")) {
     columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
-    columns.push(ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix));
+    columns.push(
+      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
+    );
   }
 
-  return <OurTable
-    data={articles}
-    columns={columns}
-    testid={testIdPrefix}
-  />;
+  return <OurTable data={articles} columns={columns} testid={testIdPrefix} />;
 }

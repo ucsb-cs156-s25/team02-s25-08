@@ -67,7 +67,8 @@ function ArticlesForm({
           {...register("url", {
             required: "URL is required.",
             pattern: {
-              value: /^https?:\/\/[a-z0-9][-a-z0-9.+]*[a-z0-9]\.[a-z0-9][-a-z0-9.+]*[a-z0-9]/i,
+              value:
+                /^https?:\/\/[a-z0-9][-a-z0-9.+]*[a-z0-9]\.[a-z0-9][-a-z0-9.+]*[a-z0-9]/i,
               message: "URL must start with http:// or https://",
             },
           })}
@@ -103,7 +104,8 @@ function ArticlesForm({
           {...register("email", {
             required: "Email is required.",
             pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/,
+              value:
+                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/,
               message: "Invalid email address",
             },
           })}
