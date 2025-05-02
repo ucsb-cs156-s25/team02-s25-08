@@ -2,7 +2,11 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function ArticlesForm({
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
   // Stryker disable all
   const {
     register,
@@ -17,7 +21,7 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
   // Note that even this complex regex may still need some tweaks
 
   // Stryker disable Regex
-  const isodate_regex = 
+  const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
   // Stryker restore Regex
 
@@ -63,7 +67,7 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
           {...register("url", {
             required: "URL is required.",
             pattern: {
-              value: /^https?:\/\/.+/,
+              value: /^https?:\/\/[a-z0-9][-a-z0-9.+]*[a-z0-9]\.[a-z0-9][-a-z0-9.+]*[a-z0-9]/i,
               message: "URL must start with http:// or https://",
             },
           })}
@@ -99,7 +103,7 @@ function ArticlesForm({ initialContents, submitAction, buttonLabel = "Create" })
           {...register("email", {
             required: "Email is required.",
             pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/,
               message: "Invalid email address",
             },
           })}
