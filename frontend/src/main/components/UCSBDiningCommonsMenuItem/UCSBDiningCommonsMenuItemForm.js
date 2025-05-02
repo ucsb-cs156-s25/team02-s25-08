@@ -63,8 +63,8 @@ function UCSBDiningCommonsMenuItemForm({
             />
             <Form.Control.Feedback type="invalid">
               {errors.diningCommonsCode && "DiningCommonsCode is required."}
-              {errors.diningCommonsCode?.type ===
-                "DiningCommonsCode must be in the format of a string."}
+              {/* {errors.diningCommonsCode?.type ===
+                "DiningCommonsCode must be in the format of a string."} */}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
