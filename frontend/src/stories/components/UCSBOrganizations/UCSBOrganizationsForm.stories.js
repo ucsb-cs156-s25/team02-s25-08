@@ -24,7 +24,7 @@ Create.args = {
 export const Update = Template.bind({});
 
 Update.args = {
-  initialContents: organizationFixtures.oneOrganization[0],  // 🔥 yours is in an array
+  initialContents: organizationFixtures.oneOrganization[0], // 🔥 yours is in an array
   buttonLabel: "Update",
   submitAction: (data) => {
     console.log("Submit was clicked with data: ", data);
