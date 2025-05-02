@@ -39,9 +39,12 @@ describe("UCSBOrganizationsTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationsTable UCSBOrganizations={[]} currentUser={currentUser} />
+          <UCSBOrganizationsTable
+            UCSBOrganizations={[]}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expectedHeaders.forEach((headerText) => {
@@ -49,7 +52,9 @@ describe("UCSBOrganizationsTable tests", () => {
     });
 
     expectedFields.forEach((field) => {
-      expect(screen.queryByTestId(`${testId}-cell-row-0-col-${field}`)).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId(`${testId}-cell-row-0-col-${field}`),
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -59,9 +64,12 @@ describe("UCSBOrganizationsTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationsTable UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationsTable
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expectedHeaders.forEach((headerText) => {
@@ -69,17 +77,31 @@ describe("UCSBOrganizationsTable tests", () => {
     });
 
     expectedFields.forEach((field) => {
-      expect(screen.getByTestId(`${testId}-cell-row-0-col-${field}`)).toBeInTheDocument();
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
+      ).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)).toHaveTextContent("ZPR");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).toHaveTextContent("ZPR");
 
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-orgTranslationShort`)).toHaveTextContent("KOREAN RADIO CL");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-orgTranslationShort`),
+    ).toHaveTextContent("KOREAN RADIO CL");
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`),
+    ).toBeInTheDocument();
   });
 
   test("Has the expected column headers, content for ordinary user", () => {
@@ -88,9 +110,12 @@ describe("UCSBOrganizationsTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationsTable UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationsTable
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expectedHeaders.forEach((headerText) => {
@@ -98,11 +123,17 @@ describe("UCSBOrganizationsTable tests", () => {
     });
 
     expectedFields.forEach((field) => {
-      expect(screen.getByTestId(`${testId}-cell-row-0-col-${field}`)).toBeInTheDocument();
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
+      ).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)).toHaveTextContent("ZPR");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).toHaveTextContent("ZPR");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -114,36 +145,54 @@ describe("UCSBOrganizationsTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationsTable UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationsTable
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
-    expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+    ).toHaveTextContent("1");
 
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
     fireEvent.click(editButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1"));
+    await waitFor(() =>
+      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1"),
+    );
   });
 
   test("Delete button calls delete callback", async () => {
     const currentUser = currentUserFixtures.adminUser;
     const axiosMock = new AxiosMockAdapter(axios);
 
-    axiosMock.onDelete("/api/ucsborganizations").reply(200, { message: "UCSB Organization deleted" });
+    axiosMock
+      .onDelete("/api/ucsborganizations")
+      .reply(200, { message: "UCSB Organization deleted" });
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationsTable UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations} currentUser={currentUser} />
+          <UCSBOrganizationsTable
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            currentUser={currentUser}
+          />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
-    expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+    ).toHaveTextContent("1");
 
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const deleteButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
     fireEvent.click(deleteButton);
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
