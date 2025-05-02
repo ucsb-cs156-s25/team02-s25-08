@@ -36,7 +36,7 @@ function UCSBDiningCommonsMenuItemForm({
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="id">Id</Form.Label>
                 <Form.Control
-                  data-testid="UCSBDiningCommonsMenuItemForm-id"
+                  data-testid="UCSBDiningCommonsMenuItem-id"
                   id="id"
                   type="text"
                   {...register("id")}
@@ -49,7 +49,7 @@ function UCSBDiningCommonsMenuItemForm({
   
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="diningCommonsCode ">Dining Commons Code</Form.Label>
+              <Form.Label htmlFor="diningCommonsCode">Dining Commons Code</Form.Label>
               <Form.Control
                 data-testid="UCSBDiningCommonsMenuItemForm-diningCommonsCode"
                 id="diningCommonsCode"
@@ -60,8 +60,8 @@ function UCSBDiningCommonsMenuItemForm({
                 })}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.diningCommonsCode && "DiningCommonsCode is required. "}
-                {errors.diningCommonsCode?.type === "DiningCommonsCode must be in the format of a string, for instance SampleCode"}
+                {errors.diningCommonsCode && "DiningCommonsCode is required."}
+                {errors.diningCommonsCode?.type === "DiningCommonsCode must be in the format of a string."}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
