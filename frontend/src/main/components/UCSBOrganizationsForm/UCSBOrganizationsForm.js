@@ -21,7 +21,7 @@ function UCSBOrganizationsForm({
       onSubmit={handleSubmit(submitAction)}
       id={initialContents ? initialContents.id : 5}
     >
-      {initialContents ?? (
+      {initialContents && (
         <Form.Group className="mb-3">
           <Form.Label htmlFor="id">Id</Form.Label>
           <Form.Control
