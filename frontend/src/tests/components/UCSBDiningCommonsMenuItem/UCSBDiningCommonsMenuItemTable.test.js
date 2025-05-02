@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
-import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable";
+import { ucsbDiningCommonsMenuItemFixtures } from "fixtures/ucsbDiningCommonsMenuItemFixtures";
+import UCSBDiningCommonsMenuItemTable from "main/components/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -23,17 +23,17 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable
-            dates={ucsbDatesFixtures.threeDates}
+          <UCSBDiningCommonsMenuItemTable
+            diningcommonsmenuitemss={ucsbDiningCommonsMenuItemFixtures.threeDates}
             currentUser={currentUser}
           />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "QuarterYYYYQ", "Name", "Date"];
-    const expectedFields = ["id", "quarterYYYYQ", "name", "localDateTime"];
-    const testId = "UCSBDatesTable";
+    const expectedHeaders = ["id", "DiningCommonsCodeStation", "Name", "Station"];
+    const expectedFields = ["id", "diningCommonsCode", "name", "station"];
+    const testId = "UCSBDiningCommonsMenuItemTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -69,17 +69,17 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable
-            dates={ucsbDatesFixtures.threeDates}
+          <UCSBDiningCommonsMenuItemTable
+            diningcommonsmenuitemss={ucsbDiningCommonsMenuItemFixtures.threeDates}
             currentUser={currentUser}
           />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "QuarterYYYYQ", "Name", "Date"];
-    const expectedFields = ["id", "quarterYYYYQ", "name", "localDateTime"];
-    const testId = "UCSBDatesTable";
+    const expectedHeaders = ["id", "DiningCommonsCodeStation", "Name", "Station"];
+    const expectedFields = ["id", "diningCommonsCode", "name", "station"];
+    const testId = "UCSBDiningCommonsMenuItemTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -117,8 +117,8 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable
-            dates={ucsbDatesFixtures.threeDates}
+          <UCSBDiningCommonsMenuItemTable
+            diningcommonsmenuitemss={ucsbDiningCommonsMenuItemFixtures.threeDates}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -127,19 +127,19 @@ describe("UserTable tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`UCSBDatesTable-cell-row-0-col-id`),
+        screen.getByTestId(`UCSBDiningCommonsMenuItemTable-cell-row-0-col-id`),
       ).toHaveTextContent("1");
     });
 
     const editButton = screen.getByTestId(
-      `UCSBDatesTable-cell-row-0-col-Edit-button`,
+      `UCSBDiningCommonsMenuItemTable-cell-row-0-col-Edit-button`,
     );
     expect(editButton).toBeInTheDocument();
 
     fireEvent.click(editButton);
 
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/ucsbdates/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/ucsbdiningcommonsmenuitem/edit/1"),
     );
   });
 
@@ -149,15 +149,15 @@ describe("UserTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/ucsbdates")
-      .reply(200, { message: "Date deleted" });
+      .onDelete("/api/ucsbdiningcommonsmenuitem")
+      .reply(200, { message: "UCSB Dining Commons Menu Item deleted" });
 
     // act - render the component
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable
-            dates={ucsbDatesFixtures.threeDates}
+          <UCSBDiningCommonsMenuItemTable
+            diningcommonsmenuitemss={ucsbDiningCommonsMenuItemFixtures.threeDates}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -168,12 +168,12 @@ describe("UserTable tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`UCSBDatesTable-cell-row-0-col-id`),
+        screen.getByTestId(`UCSBDiningCommonsMenuItemTable-cell-row-0-col-id`),
       ).toHaveTextContent("1");
     });
 
     const deleteButton = screen.getByTestId(
-      `UCSBDatesTable-cell-row-0-col-Delete-button`,
+      `UCSBDiningCommonsMenuItemTable-cell-row-0-col-Delete-button`,
     );
     expect(deleteButton).toBeInTheDocument();
 
