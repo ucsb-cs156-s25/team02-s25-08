@@ -188,7 +188,13 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,6 +225,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,134 +330,140 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 &nbsp;
 function UCSBDiningCommonsMenuItemForm({
-    initialContents,
-    submitAction,
-    buttonLabel = "Create",
-  }) {
-    // Stryker disable all
-    const {
-      register,
-      formState: { errors },
-      handleSubmit,
-    } = useForm({ defaultValues: initialContents || {} });
-    // Stryker restore all
-  
-    const navigate = useNavigate();
-  
-    // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
-    // Note that even this complex regex may still need some tweaks
-  
-    // Stryker disable Regex
-    // const isodate_regex =
-    //   /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
-    // // Stryker restore Regex
-  
-    // Stryker disable next-line all
-    // const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i; // Accepts from 1900-2099 followed by 1-4.  Close enough.
-  
-    return (
-      &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
-        &lt;Row&gt;
-          {initialContents &amp;&amp; (
-            &lt;Col&gt;
-              &lt;Form.Group className="mb-3"&gt;
-                &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
-                &lt;Form.Control
-                  data-testid="UCSBDiningCommonsMenuItem-id"
-                  id="id"
-                  type="text"
-                  {...register("id")}
-                  value={initialContents.id}
-                  disabled
-                /&gt;
-              &lt;/Form.Group&gt;
-            &lt;/Col&gt;
-          )}
-  
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
+  // Stryker disable all
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ defaultValues: initialContents || {} });
+  // Stryker restore all
+&nbsp;
+  const navigate = useNavigate();
+&nbsp;
+  // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  // Note that even this complex regex may still need some tweaks
+&nbsp;
+  // Stryker disable Regex
+  // const isodate_regex =
+  //   /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  // // Stryker restore Regex
+&nbsp;
+  // Stryker disable next-line all
+  // const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i; // Accepts from 1900-2099 followed by 1-4.  Close enough.
+&nbsp;
+  return (
+    &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
+      &lt;Row&gt;
+        {initialContents &amp;&amp; (
           &lt;Col&gt;
             &lt;Form.Group className="mb-3"&gt;
-              &lt;Form.Label htmlFor="diningCommonsCode"&gt;Dining Commons Code&lt;/Form.Label&gt;
+              &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
               &lt;Form.Control
-                data-testid="UCSBDiningCommonsMenuItemForm-diningCommonsCode"
-                id="diningCommonsCode"
+                data-testid="UCSBDiningCommonsMenuItem-id"
+                id="id"
                 type="text"
-                isInvalid={Boolean(errors.diningCommonsCode)}
-                {...register("diningCommonsCode", {
-                  required: true,
-                })}
+                {...register("id")}
+                value={initialContents.id}
+                disabled
               /&gt;
-              &lt;Form.Control.Feedback type="invalid"&gt;
-                {errors.diningCommonsCode &amp;&amp; "DiningCommonsCode is required."}
-                {errors.diningCommonsCode?.type === "DiningCommonsCode must be in the format of a string."}
-              &lt;/Form.Control.Feedback&gt;
             &lt;/Form.Group&gt;
           &lt;/Col&gt;
-          &lt;Col&gt;
-            &lt;Form.Group className="mb-3"&gt;
-              &lt;Form.Label htmlFor="station"&gt;Station&lt;/Form.Label&gt;
-              &lt;Form.Control
-                data-testid="UCSBDiningCommonsMenuItemForm-station"
-                id="station"
-                type="text"
-                isInvalid={Boolean(errors.station)}
-                {...register("station", {
-                  required: true,
-                })}
-              /&gt;
-              &lt;Form.Control.Feedback type="invalid"&gt;
-                {errors.station &amp;&amp; "Station is required. "}
-              &lt;/Form.Control.Feedback&gt;
-            &lt;/Form.Group&gt;
-          &lt;/Col&gt;
-        &lt;/Row&gt;
-  
-        &lt;Row&gt;
-          &lt;Col&gt;
-            &lt;Form.Group className="mb-3"&gt;
-              &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
-              &lt;Form.Control
-                data-testid="UCSBDiningCommonsMenuItemForm-name"
-                id="name"
-                type="text"
-                isInvalid={Boolean(errors.name)}
-                {...register("name", {
-                  required: "Name is required.",
-                })}
-              /&gt;
-              &lt;Form.Control.Feedback type="invalid"&gt;
-                {errors.name?.message}
-              &lt;/Form.Control.Feedback&gt;
-            &lt;/Form.Group&gt;
-          &lt;/Col&gt;
-        &lt;/Row&gt;
-  
-        &lt;Row&gt;
-          &lt;Col&gt;
-            &lt;Button type="submit" data-testid="UCSBDiningCommonsMenuItemForm-submit"&gt;
-              {buttonLabel}
-            &lt;/Button&gt;
-            &lt;Button
-              variant="Secondary"
-              onClick={() =&gt; navigate(-1)}
-              data-testid="UCSBDiningCommonsMenuItemForm-cancel"
-            &gt;
-              Cancel
-            &lt;/Button&gt;
-          &lt;/Col&gt;
-        &lt;/Row&gt;
-      &lt;/Form&gt;
-    );
-  }
-  
-  export default UCSBDiningCommonsMenuItemForm;
-  </pre></td></tr></table></pre>
+        )}
+&nbsp;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="diningCommonsCode"&gt;
+              Dining Commons Code
+            &lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="UCSBDiningCommonsMenuItemForm-diningCommonsCode"
+              id="diningCommonsCode"
+              type="text"
+              isInvalid={Boolean(errors.diningCommonsCode)}
+              {...register("diningCommonsCode", {
+                required: true,
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.diningCommonsCode &amp;&amp; "DiningCommonsCode is required."}
+              {errors.diningCommonsCode?.type ===
+                "DiningCommonsCode must be in the format of a string."}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="station"&gt;Station&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="UCSBDiningCommonsMenuItemForm-station"
+              id="station"
+              type="text"
+              isInvalid={Boolean(errors.station)}
+              {...register("station", {
+                required: true,
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.station &amp;&amp; "Station is required. "}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid="UCSBDiningCommonsMenuItemForm-name"
+              id="name"
+              type="text"
+              isInvalid={Boolean(errors.name)}
+              {...register("name", {
+                required: "Name is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.name?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+&nbsp;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Button
+            type="submit"
+            data-testid="UCSBDiningCommonsMenuItemForm-submit"
+          &gt;
+            {buttonLabel}
+          &lt;/Button&gt;
+          &lt;Button
+            variant="Secondary"
+            onClick={() =&gt; navigate(-1)}
+            data-testid="UCSBDiningCommonsMenuItemForm-cancel"
+          &gt;
+            Cancel
+          &lt;/Button&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+    &lt;/Form&gt;
+  );
+}
+&nbsp;
+export default UCSBDiningCommonsMenuItemForm;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-02T20:19:01.345Z
+                at 2025-05-02T20:30:23.479Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
