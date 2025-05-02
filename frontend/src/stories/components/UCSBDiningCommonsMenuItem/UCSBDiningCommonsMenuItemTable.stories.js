@@ -1,40 +1,40 @@
 import React from "react";
-import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
+import UCSBDiningCommonsMenuItemTable from "main/components/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemTable";
+import { ucsbDiningCommonsMenuItemFixtures } from "fixtures/ucsbDiningCommonsMenuItemFixtures";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { http, HttpResponse } from "msw";
 
 export default {
-  title: "components/UCSBDates/UCSBDatesTable",
-  component: UCSBDatesTable,
+  title: "components/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemTable",
+  component: UCSBDiningCommonsMenuItemTable,
 };
 
 const Template = (args) => {
-  return <UCSBDatesTable {...args} />;
+  return <UCSBDiningCommonsMenuItemTable {...args} />;
 };
 
 export const Empty = Template.bind({});
 
 Empty.args = {
-  dates: [],
+  diningcommonsmenuitems: [],
 };
 
 export const ThreeItemsOrdinaryUser = Template.bind({});
 
 ThreeItemsOrdinaryUser.args = {
-  dates: ucsbDatesFixtures.threeDates,
+  diningcommonsmenuitems: ucsbDiningCommonsMenuItemFixtures.threeDates,
   currentUser: currentUserFixtures.userOnly,
 };
 
 export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.args = {
-  dates: ucsbDatesFixtures.threeDates,
+  diningcommonsmenuitems: ucsbDiningCommonsMenuItemFixtures.threeDates,
   currentUser: currentUserFixtures.adminUser,
 };
 
 ThreeItemsAdminUser.parameters = {
   msw: [
-    http.delete("/api/ucsbdates", () => {
+    http.delete("/api/ucsbdiningcommonsmenuitem", () => {
       return HttpResponse.json({}, { status: 200 });
     }),
   ],
