@@ -17,8 +17,11 @@ function UCSBOrganizationsForm({
   const testIdPrefix = "UCSBOrganizationsForm";
 
   return (
-    <Form onSubmit={handleSubmit(submitAction)}>
-      {initialContents && (
+    <Form 
+        onSubmit={handleSubmit(submitAction)}
+        id={initialContents ? initialContents.id : 5}
+    >
+      {initialContents ? (
         <Form.Group className="mb-3">
           <Form.Label htmlFor="id">Id</Form.Label>
           <Form.Control
@@ -30,7 +33,7 @@ function UCSBOrganizationsForm({
             disabled
           />
         </Form.Group>
-      )}
+      ) : ""}
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgCode">Org Code</Form.Label>

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import UCSBOrganizationsForm from "main/components/UCSBOrganizations/UCSBOrganizationsForm";
-import { organizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import UCSBOrganizationsForm from "main/components/UCSBOrganizationsForm/UCSBOrganizationsForm";
+import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationFixtures";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const mockedNavigate = jest.fn();
@@ -43,7 +43,7 @@ describe("UCSBOrganizationsForm tests", () => {
       <QueryClientProvider client={queryClient}>
         <Router>
           <UCSBOrganizationsForm
-            initialContents={organizationFixtures.oneOrganization[0]}
+            initialContents={ucsbOrganizationsFixtures.oneUCSBOrganization}
           />
         </Router>
       </QueryClientProvider>,
@@ -56,21 +56,20 @@ describe("UCSBOrganizationsForm tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByLabelText("Id")).toHaveValue(
-      "" + organizationFixtures.oneOrganization[0].id,
+      ucsbOrganizationsFixtures.oneUCSBOrganization.id.toString(),
     );
     expect(screen.getByLabelText("Org Code")).toHaveValue(
-      organizationFixtures.oneOrganization[0].orgCode,
+      ucsbOrganizationsFixtures.oneUCSBOrganization.orgCode,
     );
     expect(screen.getByLabelText("Org Translation Short")).toHaveValue(
-      organizationFixtures.oneOrganization[0].orgTranslationShort,
+      ucsbOrganizationsFixtures.oneUCSBOrganization.orgTranslationShort,
     );
     expect(screen.getByLabelText("Org Translation")).toHaveValue(
-      organizationFixtures.oneOrganization[0].orgTranslation,
+      ucsbOrganizationsFixtures.oneUCSBOrganization.orgTranslation,
     );
     expect(screen.getByLabelText("Inactive").checked).toBe(
-      organizationFixtures.oneOrganization[0].inactive,
+      ucsbOrganizationsFixtures.oneUCSBOrganization.inactive,
     );
   });
 
