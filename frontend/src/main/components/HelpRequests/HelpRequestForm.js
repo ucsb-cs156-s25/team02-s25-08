@@ -65,7 +65,8 @@ function HelpRequestForm({
                 required: "Requester Email is required.",
                 pattern: {
                   value: email_regex,
-                  message: "Requester Email must be a valid ucsb email, e.g. joegaucho@ucsb.edu",
+                  message:
+                    "Requester Email must be a valid ucsb email, e.g. joegaucho@ucsb.edu",
                 },
               })}
             />
@@ -92,7 +93,7 @@ function HelpRequestForm({
               })}
             />
             <Form.Control.Feedback type="invalid">
-            {errors.teamId?.message}
+              {errors.teamId?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -113,19 +114,22 @@ function HelpRequestForm({
                 required: "Table Or Breakout Room is required.",
                 pattern: {
                   value: table_breakout_regex,
-                  message: "Table Or Breakout Room must be a valid one or two digit number",
+                  message:
+                    "Table Or Breakout Room must be a valid one or two digit number",
                 },
               })}
             />
             <Form.Control.Feedback type="invalid">
-            {errors.tableOrBreakoutRoom?.message}
+              {errors.tableOrBreakoutRoom?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
 
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="requestTime">Request Time (iso format)</Form.Label>
+            <Form.Label htmlFor="requestTime">
+              Request Time (iso format)
+            </Form.Label>
             <Form.Control
               data-testid={testIdPrefix + "-requestTime"}
               id="requestTime"
