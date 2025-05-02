@@ -24,7 +24,11 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
   test("renders correctly when passing in a UCSBDiningCommonsMenuItem", async () => {
     render(
       <Router>
-        <UCSBDiningCommonsMenuItemForm initialContents={ucsbDiningCommonsMenuItemFixtures.oneDiningCommonsMenuItem} />
+        <UCSBDiningCommonsMenuItemForm
+          initialContents={
+            ucsbDiningCommonsMenuItemFixtures.oneDiningCommonsMenuItem
+          }
+        />
       </Router>,
     );
     await screen.findByTestId(/UCSBDiningCommonsMenuItem-id/);
@@ -57,7 +61,9 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
       </Router>,
     );
     await screen.findByTestId("UCSBDiningCommonsMenuItemForm-submit");
-    const submitButton = screen.getByTestId("UCSBDiningCommonsMenuItemForm-submit");
+    const submitButton = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-submit",
+    );
 
     fireEvent.click(submitButton);
 
@@ -74,22 +80,34 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
         <UCSBDiningCommonsMenuItemForm submitAction={mockSubmitAction} />
       </Router>,
     );
-    await screen.findByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
+    await screen.findByTestId(
+      "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+    );
 
-    const diningCommonsCodeField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
+    const diningCommonsCodeField = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+    );
     const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-name");
-    const stationField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-station");
-    const submitButton = screen.getByTestId("UCSBDiningCommonsMenuItemForm-submit");
+    const stationField = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-station",
+    );
+    const submitButton = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-submit",
+    );
 
-    fireEvent.change(diningCommonsCodeField, { target: { value: "SampleDcCode" } });
+    fireEvent.change(diningCommonsCodeField, {
+      target: { value: "SampleDcCode" },
+    });
     fireEvent.change(nameField, { target: { value: "Portola" } });
-    fireEvent.change(stationField, { target: { value: "International" }, });
+    fireEvent.change(stationField, { target: { value: "International" } });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(
-      screen.queryByText("DiningCommonsCode must be in the format of a string."),
+      screen.queryByText(
+        "DiningCommonsCode must be in the format of a string.",
+      ),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByText("Station must be in the format of a string."),
@@ -103,7 +121,9 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
       </Router>,
     );
     await screen.findByTestId("UCSBDiningCommonsMenuItemForm-cancel");
-    const cancelButton = screen.getByTestId("UCSBDiningCommonsMenuItemForm-cancel");
+    const cancelButton = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-cancel",
+    );
 
     fireEvent.click(cancelButton);
 
