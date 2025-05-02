@@ -67,7 +67,7 @@ function UCSBDiningCommonsMenuItemForm({
           </Col>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="localDateTime">Date (iso format)</Form.Label>
+              <Form.Label htmlFor="station">Station</Form.Label>
               <Form.Control
                 data-testid="UCSBDiningCommonsMenuItemForm-station"
                 id="station"
