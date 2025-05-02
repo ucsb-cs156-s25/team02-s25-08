@@ -56,6 +56,7 @@ describe("UCSBOrganizationsForm tests", () => {
       expect(header).toBeInTheDocument();
     });
 
+    expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByLabelText("Id")).toHaveValue(
       ucsbOrganizationsFixtures.oneUCSBOrganization.id.toString(),
     );

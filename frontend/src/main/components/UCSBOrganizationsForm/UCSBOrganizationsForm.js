@@ -25,7 +25,7 @@ function UCSBOrganizationsForm({
         <Form.Group className="mb-3">
           <Form.Label htmlFor="id">Id</Form.Label>
           <Form.Control
-            // data-testid={testIdPrefix + "-id"}
+            data-testid={testIdPrefix + "-id"}
             id="id"
             type="text"
             {...register("id")}
@@ -40,7 +40,7 @@ function UCSBOrganizationsForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgCode">Org Code</Form.Label>
         <Form.Control
-          //   data-testid={testIdPrefix + "-orgCode"}
+          data-testid={testIdPrefix + "-orgCode"}
           id="orgCode"
           type="text"
           isInvalid={Boolean(errors.orgCode)}
@@ -102,7 +102,7 @@ function UCSBOrganizationsForm({
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}
-        // data-testid={testIdPrefix + "-cancel"}
+        data-testid={testIdPrefix + "-cancel"}
       >
         Cancel
       </Button>
