@@ -44,7 +44,7 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expectedHeaders.forEach((headerText) => {
@@ -53,7 +53,7 @@ describe("UCSBOrganizationsTable tests", () => {
 
     expectedFields.forEach((field) => {
       expect(
-        screen.queryByTestId(`${testId}-cell-row-0-col-${field}`),
+        screen.queryByTestId(`${testId}-cell-row-0-col-${field}`)
       ).not.toBeInTheDocument();
     });
   });
@@ -69,7 +69,7 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expectedHeaders.forEach((headerText) => {
@@ -78,29 +78,29 @@ describe("UCSBOrganizationsTable tests", () => {
 
     expectedFields.forEach((field) => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`)
       ).toBeInTheDocument();
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "1",
+      "1"
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)
     ).toHaveTextContent("ZPR");
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
+      "2"
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-orgTranslationShort`),
+      screen.getByTestId(`${testId}-cell-row-1-col-orgTranslationShort`)
     ).toHaveTextContent("KOREAN RADIO CL");
 
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`),
+      screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`)
     ).toBeInTheDocument();
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`),
+      screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`)
     ).toBeInTheDocument();
   });
 
@@ -115,7 +115,7 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expectedHeaders.forEach((headerText) => {
@@ -124,15 +124,15 @@ describe("UCSBOrganizationsTable tests", () => {
 
     expectedFields.forEach((field) => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`)
       ).toBeInTheDocument();
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "1",
+      "1"
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)
     ).toHaveTextContent("ZPR");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
@@ -150,22 +150,23 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`)
     ).toHaveTextContent("1");
 
     const editButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Edit-button`,
+      `${testId}-cell-row-0-col-Edit-button`
     );
     fireEvent.click(editButton);
 
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1")
     );
   });
+
   test("Delete button has danger style for admin user", async () => {
     const currentUser = currentUserFixtures.adminUser;
 
@@ -177,18 +178,17 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     const deleteButton = await screen.findByTestId(
-      `${testId}-cell-row-0-col-Delete-button`,
+      `${testId}-cell-row-0-col-Delete-button`
     );
 
-    // Check the className includes 'btn-danger' from Bootstrap
     expect(deleteButton).toHaveClass("btn-danger");
   });
 
-  test("Edit button navigates to the edit page", async () => {
+  test("Edit button has btn-primary class and navigates to edit page", async () => {
     const currentUser = currentUserFixtures.adminUser;
 
     render(
@@ -199,24 +199,23 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`)
     ).toHaveTextContent("1");
 
     const editButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Edit-button`,
+      `${testId}-cell-row-0-col-Edit-button`
     );
 
-    // 🔽 ✅ INSERT THIS ASSERTION
     expect(editButton).toHaveClass("btn-primary");
 
     fireEvent.click(editButton);
 
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1")
     );
   });
 
@@ -236,15 +235,15 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`)
     ).toHaveTextContent("1");
 
     const deleteButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Delete-button`,
+      `${testId}-cell-row-0-col-Delete-button`
     );
     fireEvent.click(deleteButton);
 
