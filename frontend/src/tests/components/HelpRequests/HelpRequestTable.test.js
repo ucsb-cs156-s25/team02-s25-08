@@ -68,6 +68,16 @@ describe("UserTable tests", () => {
       "2",
     );
 
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-solved`)).toHaveTextContent(
+      "false",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-solved`)).toHaveTextContent(
+      "false",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-solved`)).toHaveTextContent(
+      "true",
+    );
+
     const editButton = screen.queryByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
     );
@@ -128,6 +138,16 @@ describe("UserTable tests", () => {
     );
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
+    );
+
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-solved`)).toHaveTextContent(
+      "false",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-solved`)).toHaveTextContent(
+      "false",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-solved`)).toHaveTextContent(
+      "true",
     );
 
     const editButton = screen.getByTestId(
