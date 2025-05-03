@@ -184,7 +184,7 @@ describe("MenuItemReviewEditPage tests", () => {
       fireEvent.change(reviewerEmailField, {
         target: { value: "cgaucho1@ucsb.edu" },
       });
-      fireEvent.change(stars, { target: { value: "3" } });
+      fireEvent.change(starsField, { target: { value: "3" } });
       fireEvent.change(dateReviewedField, {
         target: { value: "2022-03-14T15:00" },
       });
