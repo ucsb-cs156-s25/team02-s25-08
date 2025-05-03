@@ -23,22 +23,18 @@ describe("UCSBOrganizationsCreatePage tests", () => {
   };
 
   const queryClient = new QueryClient();
-  test("Renders expected content", async () => {
-    // arrange
 
+  test("Renders expected content", async () => {
     setupUserOnly();
 
-    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
-    // assert
-
-    await screen.findByText("Create page not yet implemented. ");
+    await screen.findByText(/Create page not yet implemented/i);
   });
 });
