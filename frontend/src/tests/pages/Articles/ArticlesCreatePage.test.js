@@ -69,7 +69,7 @@ describe("ArticlesCreatePage tests", () => {
       url: "https://www.cs.ucsb.edu/article1",
       explanation: "New research in Computer Science",
       email: "researcher@ucsb.edu",
-      dateAdded: "2024-02-01T12:00"
+      dateAdded: "2024-02-01T12:00",
     };
 
     axiosMock.onPost("/api/articles/post").reply(202, article);
@@ -94,11 +94,15 @@ describe("ArticlesCreatePage tests", () => {
     const submitButton = screen.getByTestId("ArticlesForm-submit");
 
     fireEvent.change(titleInput, { target: { value: "New CS Article" } });
-    fireEvent.change(urlInput, { target: { value: "https://www.cs.ucsb.edu/article1" } });
-    fireEvent.change(explanationInput, { target: { value: "New research in Computer Science" } });
+    fireEvent.change(urlInput, {
+      target: { value: "https://www.cs.ucsb.edu/article1" },
+    });
+    fireEvent.change(explanationInput, {
+      target: { value: "New research in Computer Science" },
+    });
     fireEvent.change(emailInput, { target: { value: "researcher@ucsb.edu" } });
     fireEvent.change(dateAddedInput, { target: { value: "2024-02-01T12:00" } });
-    
+
     expect(submitButton).toBeInTheDocument();
 
     fireEvent.click(submitButton);
@@ -110,11 +114,11 @@ describe("ArticlesCreatePage tests", () => {
       url: "https://www.cs.ucsb.edu/article1",
       explanation: "New research in Computer Science",
       email: "researcher@ucsb.edu",
-      dateAdded: "2024-02-01T12:00"
+      dateAdded: "2024-02-01T12:00",
     });
 
     expect(mockToast).toBeCalledWith(
-      "New article Created - id: 3 title: New CS Article"
+      "New article Created - id: 3 title: New CS Article",
     );
     expect(mockNavigate).toBeCalledWith({ to: "/articles" });
   });

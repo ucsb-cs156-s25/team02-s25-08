@@ -13,8 +13,8 @@ export default function ArticlesCreatePage({ storybook = false }) {
       url: article.url,
       explanation: article.explanation,
       email: article.email,
-      dateAdded: article.dateAdded
-    }
+      dateAdded: article.dateAdded,
+    },
   });
 
   const onSuccess = (article) => {
@@ -25,7 +25,7 @@ export default function ArticlesCreatePage({ storybook = false }) {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/articles/all"]
+    ["/api/articles/all"],
   );
 
   const { isSuccess } = mutation;
