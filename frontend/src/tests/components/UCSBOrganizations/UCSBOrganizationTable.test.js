@@ -58,7 +58,7 @@ describe("UCSBOrganizationsTable tests", () => {
     });
   });
 
-  test("Has the expected column headers, content and buttons for admin user", () => {
+  test("Has the expected column headers, content and buttons for admin user (c1)", () => {
     const currentUser = currentUserFixtures.adminUser;
 
     render(
@@ -104,7 +104,7 @@ describe("UCSBOrganizationsTable tests", () => {
     ).toBeInTheDocument();
   });
 
-  test("Has the expected column headers, content for ordinary user", () => {
+  test("Has the expected column headers, content for ordinary user (C2)", () => {
     const currentUser = currentUserFixtures.userOnly;
 
     render(
