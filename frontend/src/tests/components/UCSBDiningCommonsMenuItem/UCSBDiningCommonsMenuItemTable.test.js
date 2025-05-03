@@ -24,14 +24,14 @@ describe("UserTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDates}
+            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "DiningCommonsCodeStation", "Name", "Station"];
+    const expectedHeaders = ["id", "DiningCommonsCode", "Name", "Station"];
     const expectedFields = ["id", "diningCommonsCode", "name", "station"];
     const testId = "UCSBDiningCommonsMenuItemTable";
 
@@ -70,14 +70,14 @@ describe("UserTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDates}
+            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "DiningCommonsCodeStation", "Name", "Station"];
+    const expectedHeaders = ["id", "DiningCommonsCode", "Name", "Station"];
     const expectedFields = ["id", "diningCommonsCode", "name", "station"];
     const testId = "UCSBDiningCommonsMenuItemTable";
 
@@ -118,7 +118,7 @@ describe("UserTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDates}
+            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -157,7 +157,7 @@ describe("UserTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemTable
-            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDates}
+            diningcommonsmenuitems={ucsbDiningCommonsMenuItemFixtures.threeDiningCommonsMenuItems}
             currentUser={currentUser}
           />
         </MemoryRouter>
