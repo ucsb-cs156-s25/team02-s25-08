@@ -9,12 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
  * This is a JPA entity that represents a UCSBOrganization.
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,8 +19,10 @@ import java.time.LocalDateTime;
 @Entity(name = "ucsborganization")
 public class UCSBOrganization {
   @Id
-  private String orgCode;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
+  private String orgCode;
   private String orgTranslationShort;
   private String orgTranslation;
   private boolean inactive;
