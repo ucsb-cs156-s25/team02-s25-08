@@ -1,7 +1,10 @@
-import { onDeleteSuccess, cellToAxiosParamsDelete, articleUtils } from "main/utils/articlesUtils";
+import {
+  onDeleteSuccess,
+  cellToAxiosParamsDelete,
+  articleUtils,
+} from "main/utils/articlesUtils";
 
 describe("articlesUtils tests", () => {
-  
   describe("onDeleteSuccess", () => {
     test("logs the message to console", () => {
       const consoleSpy = jest.spyOn(console, "log");
@@ -10,7 +13,7 @@ describe("articlesUtils tests", () => {
       expect(consoleSpy).toHaveBeenCalledWith(testMessage);
       consoleSpy.mockRestore();
     });
-    
+
     test("handles empty message", () => {
       const consoleSpy = jest.spyOn(console, "log");
       onDeleteSuccess("");
@@ -25,39 +28,39 @@ describe("articlesUtils tests", () => {
       consoleSpy.mockRestore();
     });
   });
-  
+
   describe("cellToAxiosParamsDelete", () => {
     test("maps cell data correctly", () => {
       const cell = {
         row: {
           values: {
-            id: 17
-          }
-        }
+            id: 17,
+          },
+        },
       };
       const result = cellToAxiosParamsDelete(cell);
       expect(result).toEqual({
         url: "/api/articles",
         method: "DELETE",
         params: {
-          id: 17
-        }
+          id: 17,
+        },
       });
     });
 
     test("handles missing id", () => {
       const cell = {
         row: {
-          values: { }
-        }
+          values: {},
+        },
       };
       const result = cellToAxiosParamsDelete(cell);
       expect(result).toEqual({
         url: "/api/articles",
         method: "DELETE",
         params: {
-          id: undefined
-        }
+          id: undefined,
+        },
       });
     });
   });

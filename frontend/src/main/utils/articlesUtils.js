@@ -1,5 +1,5 @@
 const articleUtils = {
-  url: "/api/articles"
+  url: "/api/articles",
 };
 
 export function onDeleteSuccess(message) {

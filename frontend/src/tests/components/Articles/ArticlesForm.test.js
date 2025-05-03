@@ -164,7 +164,7 @@ describe("ArticlesForm tests", () => {
         <ArticlesForm submitAction={mockSubmitAction} />
       </Router>,
     );
-    
+
     // Fill in all required fields to make the test pass
     const titleField = screen.getByTestId("ArticlesForm-title");
     const urlField = screen.getByTestId("ArticlesForm-url");
@@ -172,13 +172,15 @@ describe("ArticlesForm tests", () => {
     const emailField = screen.getByTestId("ArticlesForm-email");
     const dateAddedField = screen.getByTestId("ArticlesForm-dateAdded");
     const submitButton = screen.getByTestId("ArticlesForm-submit");
-    
+
     fireEvent.change(titleField, { target: { value: "Test Title" } });
     fireEvent.change(urlField, { target: { value: "https://test.com" } });
-    fireEvent.change(explanationField, { target: { value: "Test explanation" } });
+    fireEvent.change(explanationField, {
+      target: { value: "Test explanation" },
+    });
     fireEvent.change(emailField, { target: { value: "test@example.com" } });
     fireEvent.change(dateAddedField, { target: { value: "2024-02-01T12:00" } });
-    
+
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
@@ -191,7 +193,7 @@ describe("ArticlesForm tests", () => {
         <ArticlesForm />
       </Router>,
     );
-    
+
     const titleField = screen.getByTestId("ArticlesForm-title");
     const urlField = screen.getByTestId("ArticlesForm-url");
     const submitButton = screen.getByTestId("ArticlesForm-submit");
