@@ -166,6 +166,26 @@ describe("UCSBOrganizationsTable tests", () => {
       expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1"),
     );
   });
+  test("Delete button has danger style for admin user", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+  
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationsTable
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            currentUser={currentUser}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+  
+    const deleteButton = await screen.findByTestId(`${testId}-cell-row-0-col-Delete-button`);
+  
+    // Check the className includes 'btn-danger' from Bootstrap
+    expect(deleteButton).toHaveClass("btn-danger");
+  });
+  
 
   test("Delete button calls delete callback", async () => {
     const currentUser = currentUserFixtures.adminUser;
