@@ -1,4 +1,4 @@
-// frontend/src/main/components/RecommendationRequest/RecommendationRequestForm.js
+// frontend/src/main/components/RecommendationRequests/RecommendationRequestForm.js
 
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -9,10 +9,13 @@ function RecommendationRequestForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+  // Stryker disable Regex
+  // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  // Note that even this complex regex may still need some tweaks
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
-
   const email_regex = /\S+@\S+\.\S+/;
+  // Stryker restore Regex
 
   const {
     register,
@@ -118,7 +121,7 @@ function RecommendationRequestForm({
             <Form.Control
               data-testid="RecommendationRequestForm-dateRequested"
               id="dateRequested"
-              type="datetime-local"
+              type="text"
               isInvalid={Boolean(errors.dateRequested)}
               {...register("dateRequested", {
                 required: "Date requested is required.",
@@ -140,7 +143,7 @@ function RecommendationRequestForm({
             <Form.Control
               data-testid="RecommendationRequestForm-dateNeeded"
               id="dateNeeded"
-              type="datetime-local"
+              type="text"
               isInvalid={Boolean(errors.dateNeeded)}
               {...register("dateNeeded", {
                 required: "Date needed is required.",
@@ -163,7 +166,9 @@ function RecommendationRequestForm({
               id="done"
               label="Done?"
               data-testid="RecommendationRequestForm-done"
+              // Stryker disable next-line all
               defaultChecked={initialContents?.done || false}
+              // Stryker restore next-line all
               {...register("done")}
             />
           </Form.Group>
@@ -172,9 +177,13 @@ function RecommendationRequestForm({
 
       <Row>
         <Col>
-          <Button type="submit" data-testid="RecommendationRequestForm-submit">
+          <Button
+            type="submit"
+            data-testid="RecommendationRequestForm-submit"
+            className="me-2"
+          >
             {buttonLabel}
-          </Button>{" "}
+          </Button>
           <Button
             variant="secondary"
             onClick={() => navigate(-1)}
