@@ -34,7 +34,7 @@ describe("UCSBOrganizationsEditPage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsEditPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // assert (using role and partial match for flexibility)

@@ -32,7 +32,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await screen.findByText(/Create page not yet implemented/i);
