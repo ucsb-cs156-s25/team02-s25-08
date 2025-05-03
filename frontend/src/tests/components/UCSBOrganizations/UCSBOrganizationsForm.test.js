@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import UCSBOrganizationsForm from "main/components/UCSBOrganizations/UCSBOrganizationsForm";
-import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationFixtures";
+import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const mockedNavigate = jest.fn();

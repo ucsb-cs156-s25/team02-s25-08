@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
+import { ucsbOrganizatiosFixtures } from "fixtures/ucsbOrganizationsFixtures";
 import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationsTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
