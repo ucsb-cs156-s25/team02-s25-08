@@ -1,162 +1,70 @@
-import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
-import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationsTable";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
-import { currentUserFixtures } from "fixtures/currentUserFixtures";
-import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
+import React from "react";
+import OurTable, { ButtonColumn } from "main/components/OurTable";
 
-const mockedNavigate = jest.fn();
+import { useBackendMutation } from "main/utils/useBackend";
+import {
+  cellToAxiosParamsDelete,
+  onDeleteSuccess,
+} from "main/utils/ucsbOrganizationsUtils";
+import { useNavigate } from "react-router-dom";
+import { hasRole } from "main/utils/currentUser";
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockedNavigate,
-}));
+export default function UCSBOrganizationsTable({
+  UCSBOrganizations,
+  currentUser,
+  testIdPrefix = "UCSBOrganizationsTable",
+}) {
+  const navigate = useNavigate();
 
-describe("UCSBOrganizationsTable tests", () => {
-  const queryClient = new QueryClient();
+  const editCallback = (cell) => {
+    navigate(`/UCSBOrganizations/edit/${cell.row.values.id}`);
+  };
 
-  const expectedHeaders = [
-    "id",
-    "Organization Code",
-    "Organization Translation Short",
-    "Organization Translation",
-    "Inactive",
+  const deleteMutation = useBackendMutation(
+    cellToAxiosParamsDelete,
+    { onSuccess: onDeleteSuccess },
+    ["/api/ucsborganizations/all"],
+  );
+
+  const deleteCallback = async (cell) => {
+    deleteMutation.mutate(cell);
+  };
+
+  const columns = [
+    {
+      Header: "id",
+      accessor: "id",
+    },
+    {
+      Header: "Organization Code",
+      accessor: "orgCode",
+    },
+    {
+      Header: "Organization Translation Short",
+      accessor: "orgTranslationShort",
+    },
+    {
+      Header: "Organization Translation",
+      accessor: "orgTranslation",
+    },
+    {
+      Header: "Inactive",
+      accessor: "inactive",
+    },
   ];
-  const expectedFields = [
-    "id",
-    "orgCode",
-    "orgTranslationShort",
-    "orgTranslation",
-    "inactive",
-  ];
-  const testId = "UCSBOrganizationsTable";
 
-  test("renders empty table correctly", () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBOrganizationsTable
-            UCSBOrganizations={[]}
-            currentUser={currentUser}
-          />
-        </MemoryRouter>
-      </QueryClientProvider>,
+  if (hasRole(currentUser, "ROLE_ADMIN")) {
+    columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
+    columns.push(
+      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
     );
+  }
 
-    expectedHeaders.forEach((headerText) => {
-      expect(screen.getByText(headerText)).toBeInTheDocument();
-    });
-
-    expectedFields.forEach((field) => {
-      expect(
-        screen.queryByTestId(`${testId}-cell-row-0-col-${field}`),
-      ).not.toBeInTheDocument();
-    });
-  });
-
-  test("Has the expected column headers and buttons for admin user", () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBOrganizationsTable
-            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
-            currentUser={currentUser}
-          />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
-
-    expectedHeaders.forEach((headerText) => {
-      expect(screen.getByText(headerText)).toBeInTheDocument();
-    });
-
-    expectedFields.forEach((field) => {
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
-      ).toBeInTheDocument();
-    });
-
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`),
-    ).toHaveClass("btn-primary");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`),
-    ).toHaveClass("btn-danger");
-  });
-
-  test("Does not render Edit/Delete buttons for regular user", () => {
-    const currentUser = currentUserFixtures.userOnly;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBOrganizationsTable
-            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
-            currentUser={currentUser}
-          />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
-
-    expect(screen.queryByText("Edit")).not.toBeInTheDocument();
-    expect(screen.queryByText("Delete")).not.toBeInTheDocument();
-  });
-
-  test("Clicking edit navigates correctly", async () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBOrganizationsTable
-            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
-            currentUser={currentUser}
-          />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
-
-    const editButton = await screen.findByTestId(
-      `${testId}-cell-row-0-col-Edit-button`,
-    );
-    fireEvent.click(editButton);
-
-    await waitFor(() => {
-      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1");
-    });
-  });
-
-  test("Delete callback fires correctly", async () => {
-    const currentUser = currentUserFixtures.adminUser;
-    const axiosMock = new AxiosMockAdapter(axios);
-    axiosMock
-      .onDelete("/api/ucsborganizations", { params: { id: 1 } })
-      .reply(200);
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UCSBOrganizationsTable
-            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
-            currentUser={currentUser}
-          />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
-
-    const deleteButton = await screen.findByTestId(
-      `${testId}-cell-row-0-col-Delete-button`,
-    );
-    fireEvent.click(deleteButton);
-
-    await waitFor(() => {
-      expect(axiosMock.history.delete.length).toBeGreaterThan(0);
-    });
-  });
-});
+  return (
+    <OurTable
+      data={UCSBOrganizations}
+      columns={columns}
+      testid={testIdPrefix}
+    />
+  );
+}
