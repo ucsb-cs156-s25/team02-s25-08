@@ -192,7 +192,7 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    // assert - check that the expected content is rendered
+    // assert - check that the expected content is rendered 
 
     await waitFor(() => {
       expect(
