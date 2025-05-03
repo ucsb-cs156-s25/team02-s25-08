@@ -25,6 +25,7 @@ describe("UCSBOrganizationsEditPage tests", () => {
   const queryClient = new QueryClient();
   test("Renders expected content", async () => {
     setupUserOnly();
+
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>

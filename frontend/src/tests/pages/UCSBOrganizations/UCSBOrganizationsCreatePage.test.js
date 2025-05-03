@@ -23,10 +23,12 @@ describe("UCSBOrganizationsCreatePage tests", () => {
   };
 
   const queryClient = new QueryClient();
-
   test("Renders expected content", async () => {
+    // arrange
+
     setupUserOnly();
 
+    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -34,6 +36,8 @@ describe("UCSBOrganizationsCreatePage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
+
+    // assert
 
     await screen.findByText("Create page not yet implemented");
   });

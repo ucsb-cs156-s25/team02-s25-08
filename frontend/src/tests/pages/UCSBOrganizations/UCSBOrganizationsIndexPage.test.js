@@ -24,11 +24,7 @@ describe("UCSBOrganizationsIndexPage tests", () => {
 
   const queryClient = new QueryClient();
   test("Renders expected content", async () => {
-    // arrange
-
     setupUserOnly();
-
-    // act
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -40,7 +36,6 @@ describe("UCSBOrganizationsIndexPage tests", () => {
 
     await screen.findByText("Index page not yet implemented");
 
-    // assert
     expect(
       screen.getByText("Index page not yet implemented"),
     ).toBeInTheDocument();
