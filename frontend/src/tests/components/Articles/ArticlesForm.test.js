@@ -30,7 +30,7 @@ describe("ArticlesForm tests", () => {
     );
 
     expect(await screen.findByTestId("ArticlesForm-id")).toBeInTheDocument();
-    expect(screen.getByTestId("ArticlesForm-id")).toHaveValue("1");
+    expect(screen.getByTestId(/ArticlesForm-id/)).toHaveValue("1");
     expect(screen.getByTestId("ArticlesForm-title")).toHaveValue(
       "UCSB Researchers Develop New Quantum Computing Platform",
     );
@@ -137,5 +137,70 @@ describe("ArticlesForm tests", () => {
     fireEvent.click(cancelButton);
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
+  });
+
+  test("Correct error messages on invalid input", async () => {
+    render(
+      <Router>
+        <ArticlesForm />
+      </Router>,
+    );
+    await screen.findByTestId("ArticlesForm-title");
+    const titleField = screen.getByTestId("ArticlesForm-title");
+    const dateAddedField = screen.getByTestId("ArticlesForm-dateAdded");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+    fireEvent.change(titleField, { target: { value: "bad-input" } });
+    fireEvent.change(dateAddedField, { target: { value: "bad-input" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Date Added is required/);
+  });
+
+  test("allows valid https URL", async () => {
+    const mockSubmitAction = jest.fn();
+    render(
+      <Router>
+        <ArticlesForm submitAction={mockSubmitAction} />
+      </Router>,
+    );
+    
+    // Fill in all required fields to make the test pass
+    const titleField = screen.getByTestId("ArticlesForm-title");
+    const urlField = screen.getByTestId("ArticlesForm-url");
+    const explanationField = screen.getByTestId("ArticlesForm-explanation");
+    const emailField = screen.getByTestId("ArticlesForm-email");
+    const dateAddedField = screen.getByTestId("ArticlesForm-dateAdded");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
+    
+    fireEvent.change(titleField, { target: { value: "Test Title" } });
+    fireEvent.change(urlField, { target: { value: "https://test.com" } });
+    fireEvent.change(explanationField, { target: { value: "Test explanation" } });
+    fireEvent.change(emailField, { target: { value: "test@example.com" } });
+    fireEvent.change(dateAddedField, { target: { value: "2024-02-01T12:00" } });
+    
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
+    expect(screen.queryByText(/URL must start/)).not.toBeInTheDocument();
+  });
+
+  test("rejects httpx as invalid", async () => {
+    render(
+      <Router>
+        <ArticlesForm />
+      </Router>,
+    );
+    
+    const titleField = screen.getByTestId("ArticlesForm-title");
+    const urlField = screen.getByTestId("ArticlesForm-url");
+    const submitButton = screen.getByTestId("ArticlesForm-submit");
+
+    // Add a title to avoid other validation errors
+    fireEvent.change(titleField, { target: { value: "Test Title" } });
+    fireEvent.change(urlField, { target: { value: "httpx://bad.com" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/URL must start/);
   });
 });
