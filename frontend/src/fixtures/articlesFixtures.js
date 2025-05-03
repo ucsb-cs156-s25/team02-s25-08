@@ -40,4 +40,4 @@ const articlesFictures = {
   ],
 };
 
-export default articlesFictures;
+export { articlesFictures };
