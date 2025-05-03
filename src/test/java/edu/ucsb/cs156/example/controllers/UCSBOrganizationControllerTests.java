@@ -60,10 +60,6 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(200)); // logged
         }
 
-
-                // Authorization tests for /api/ucsborganization/post
-        // (Perhaps should also have these for put and delete)
-
         @Test
         public void logged_out_users_cannot_post() throws Exception {
                 mockMvc.perform(post("/api/ucsborganization/post"))
@@ -83,33 +79,39 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
 
                 // arrange
 
-                UCSBOrganization ucsbOrganization1 = UCSBOrganization.builder()
+                UCSBOrganization org1 = UCSBOrganization.builder()
                         .orgCode("ZPR")
                         .orgTranslationShort("ZETA PHI RHO")
                         .orgTranslation("ZETA PHI RHO")
                         .inactive(false)
                         .build();
 
-                UCSBOrganization ucsbOrganization2 = UCSBOrganization.builder()
-                        .orgCode("SKY")
-                        .orgTranslationShort("SKYDIVING CLUB")
-                        .orgTranslation("SKYDIVING CLUB AT UCSB")
-                        .inactive(true)
+                UCSBOrganization org2 = UCSBOrganization.builder()
+                        .orgCode("KRC")
+                        .orgTranslationShort("KOREAN RADIO CL")
+                        .orgTranslation("KOREAN RADIO CLUB")
+                        .inactive(false)
                         .build();
 
-                ArrayList<UCSBOrganization> expectedUCSBOrganization = new ArrayList<>();
-                expectedUCSBOrganization.addAll(Arrays.asList(ucsbOrganization1, ucsbOrganization2));
+                UCSBOrganization org3 = UCSBOrganization.builder()
+                        .orgCode("OSLI")
+                        .orgTranslationShort("STUDENT LIFE")
+                        .orgTranslation("OFFICE OF STUDENT LIFE")
+                        .inactive(false)
+                        .build();
 
-                when(ucsbOrganizationRepository.findAll()).thenReturn(expectedUCSBOrganization);
+                ArrayList<UCSBOrganization> expectedUCSBOrganizations = new ArrayList<>();
+                expectedUCSBOrganizations.addAll(Arrays.asList(org1, org2, org3));
 
-                // act
+                when(ucsbOrganizationRepository.findAll()).thenReturn(expectedUCSBOrganizations);
+
+
                 MvcResult response = mockMvc.perform(get("/api/ucsborganization/all"))
                                 .andExpect(status().isOk()).andReturn();
 
-                // assert
 
                 verify(ucsbOrganizationRepository, times(1)).findAll();
-                String expectedJson = mapper.writeValueAsString(expectedUCSBOrganization);
+                String expectedJson = mapper.writeValueAsString(expectedUCSBOrganizations);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
