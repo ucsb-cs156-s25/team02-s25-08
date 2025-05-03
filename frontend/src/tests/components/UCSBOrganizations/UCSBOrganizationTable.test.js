@@ -168,7 +168,7 @@ describe("UCSBOrganizationsTable tests", () => {
   });
   test("Delete button has danger style for admin user", async () => {
     const currentUser = currentUserFixtures.adminUser;
-  
+
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -177,15 +177,48 @@ describe("UCSBOrganizationsTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
-    const deleteButton = await screen.findByTestId(`${testId}-cell-row-0-col-Delete-button`);
-  
+
+    const deleteButton = await screen.findByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
+
     // Check the className includes 'btn-danger' from Bootstrap
     expect(deleteButton).toHaveClass("btn-danger");
   });
-  
+
+  test("Edit button navigates to the edit page", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationsTable
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            currentUser={currentUser}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-id`),
+    ).toHaveTextContent("1");
+
+    const editButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
+
+    // 🔽 ✅ INSERT THIS ASSERTION
+    expect(editButton).toHaveClass("btn-primary");
+
+    fireEvent.click(editButton);
+
+    await waitFor(() =>
+      expect(mockedNavigate).toHaveBeenCalledWith("/UCSBOrganizations/edit/1"),
+    );
+  });
 
   test("Delete button calls delete callback", async () => {
     const currentUser = currentUserFixtures.adminUser;
