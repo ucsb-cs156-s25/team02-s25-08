@@ -4,7 +4,7 @@ export default function UCSBOrganizationsIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Index page not yet implemented. </h1>
+        <h1>Index page not yet implemented</h1>
         <p>
           <a href="/ucsborganizations/create">Create</a>
         </p>

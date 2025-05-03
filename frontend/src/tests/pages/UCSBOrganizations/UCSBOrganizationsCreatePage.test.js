@@ -35,6 +35,6 @@ describe("UCSBOrganizationsCreatePage tests", () => {
       </QueryClientProvider>,
     );
 
-    await screen.findByText(/Create page not yet implemented/i);
+    await screen.findByText("Create page not yet implemented");
   });
 });

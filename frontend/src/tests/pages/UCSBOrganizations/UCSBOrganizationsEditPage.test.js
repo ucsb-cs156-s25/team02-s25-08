@@ -23,12 +23,8 @@ describe("UCSBOrganizationsEditPage tests", () => {
   };
 
   const queryClient = new QueryClient();
-
   test("Renders expected content", async () => {
-    // arrange
     setupUserOnly();
-
-    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -37,9 +33,6 @@ describe("UCSBOrganizationsEditPage tests", () => {
       </QueryClientProvider>,
     );
 
-    // assert (using role and partial match for flexibility)
-    await screen.findByRole("heading", {
-      name: /edit page not yet implemented/i,
-    });
+    await screen.findByText("Edit page not yet implemented");
   });
 });
