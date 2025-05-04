@@ -186,7 +186,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
     // act
     fireEvent.click(deleteButton);
 
-    // assert 
+    // assert
     await waitFor(() => {
       expect(mockToast).toBeCalledWith(
         "UCSBDiningCommonsMenuItem with id 1 was deleted",
