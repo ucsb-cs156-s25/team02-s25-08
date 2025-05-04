@@ -5,8 +5,6 @@ import { http, HttpResponse } from "msw";
 
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 
-import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
-
 export default {
   title: "pages/UCSBOrganizations/UCSBOrganizationsCreatePage",
   component: UCSBOrganizationsCreatePage,
@@ -28,9 +26,7 @@ Default.parameters = {
       });
     }),
     http.post("/api/ucsborganizations/post", () => {
-      return HttpResponse.json(ucsbOrganizationsFixtures.oneUCSBOrganization, {
-        status: 200,
-      });
+      return HttpResponse.json({}, { status: 200 }); // match teacher logic here
     }),
   ],
 };

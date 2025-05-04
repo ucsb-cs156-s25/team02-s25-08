@@ -5,26 +5,29 @@ import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBOrganizationsCreatePage({ storybook = false }) {
-  const objectToAxiosParams = (ucsborganization) => ({
+  const objectToAxiosParams = (organization) => ({
     url: "/api/ucsborganizations/post",
     method: "POST",
     params: {
-      orgCode: ucsborganization.orgCode,
-      orgTranslationShort: ucsborganization.orgTranslationShort,
-      orgTranslation: ucsborganization.orgTranslation,
-      inactive: ucsborganization.inactive,
+      orgCode: organization.orgCode,
+      orgTranslationShort: organization.orgTranslationShort,
+      orgTranslation: organization.orgTranslation,
+      inactive: organization.inactive,
     },
   });
 
-  const onSuccess = (ucsborganization) => {
+  const onSuccess = (organization) => {
     toast(
-      `New organization Created - id: ${ucsborganization.id} orgCode: ${ucsborganization.orgCode}`,
+      `New organization Created - OrgCode: ${organization.orgCode} OrgTranslationShort: ${organization.orgTranslationShort} OrgTranslation: ${organization.orgTranslation} Inactive: ${organization.inactive}`,
     );
   };
 
-  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, [
-    "/api/ucsborganization/all",
-  ]);
+  const mutation = useBackendMutation(
+    objectToAxiosParams,
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/ucsborganizations/all"]
+  );
 
   const { isSuccess } = mutation;
 
