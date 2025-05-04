@@ -49,7 +49,9 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } }).timeout();
+      axiosMock
+        .onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } })
+        .timeout();
     });
 
     const queryClient = new QueryClient();
@@ -83,12 +85,14 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        diningCommonsCode: "Portola",
-        name: "Sushi",
-        station: "International",
-      });
+      axiosMock
+        .onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          diningCommonsCode: "Portola",
+          name: "Sushi",
+          station: "International",
+        });
       axiosMock.onPut("/api/ucsbdiningcommonsmenuitem").reply(200, {
         id: "17",
         diningCommonsCode: "DLG",
@@ -107,7 +111,9 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
+      await screen.findByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
     });
 
     test("Is populated with the data provided", async () => {
@@ -119,15 +125,23 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
+      await screen.findByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
 
       const idField = screen.getByTestId("UCSBDiningCommonsMenuItem-id"); // Changed data-testid here
-      const diningCommonsCodeField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
-      const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-name");
+      const diningCommonsCodeField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
+      const nameField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-name",
+      );
       const stationField = screen.getByTestId(
         "UCSBDiningCommonsMenuItemForm-station",
       );
-      const submitButton = screen.getByTestId("UCSBDiningCommonsMenuItemForm-submit");
+      const submitButton = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-submit",
+      );
 
       expect(idField).toHaveValue("17");
       expect(diningCommonsCodeField).toHaveValue("Portola");
@@ -145,15 +159,23 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
+      await screen.findByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
 
       const idField = screen.getByTestId("UCSBDiningCommonsMenuItem-id"); // Changed data-testid here
-      const diningCommonsCodeField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode");
-      const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-name");
+      const diningCommonsCodeField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
+      const nameField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-name",
+      );
       const stationField = screen.getByTestId(
         "UCSBDiningCommonsMenuItemForm-station",
       );
-      const submitButton = screen.getByTestId("UCSBDiningCommonsMenuItemForm-submit");
+      const submitButton = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-submit",
+      );
 
       expect(idField).toHaveValue("17");
       expect(diningCommonsCodeField).toHaveValue("Portola");
