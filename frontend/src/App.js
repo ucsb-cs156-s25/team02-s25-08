@@ -1,5 +1,3 @@
-// src/App.js
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
@@ -54,11 +52,11 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
+
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <Route exact path="/admin/users" element={<AdminUsersPage />} />
         )}
 
-        {/* UCSBDates */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         )}
@@ -77,7 +75,6 @@ function App() {
           </>
         )}
 
-        {/* RECOMMENDATION REQUEST (USER) */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route
             exact
@@ -85,7 +82,6 @@ function App() {
             element={<RecommendationRequestIndexPage />}
           />
         )}
-        {/* UCSB ORGANIZATIONS (USER) */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route
             exact
@@ -93,8 +89,6 @@ function App() {
             element={<UCSBOrganizationsIndexPage />}
           />
         )}
-
-        {/* RECOMMENDATION REQUEST (ADMIN) */}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
@@ -109,7 +103,6 @@ function App() {
             />
           </>
         )}
-        {/* UCSB ORGANIZATIONS (ADMIN) */}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
@@ -125,7 +118,6 @@ function App() {
           </>
         )}
 
-        {/* RESTAURANTS */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         )}
@@ -144,7 +136,6 @@ function App() {
           </>
         )}
 
-        {/* DINING COMMONS MENU ITEMS */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route
             exact
@@ -167,7 +158,6 @@ function App() {
           </>
         )}
 
-        {/* ARTICLES */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/articles" element={<ArticlesIndexPage />} />
         )}
@@ -186,7 +176,6 @@ function App() {
           </>
         )}
 
-        {/* MENU ITEM REVIEWS */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route
             exact
@@ -209,7 +198,6 @@ function App() {
           </>
         )}
 
-        {/* PLACEHOLDER */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         )}
@@ -228,7 +216,6 @@ function App() {
           </>
         )}
 
-        {/* HELP REQUESTS */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         )}
