@@ -1,17 +1,15 @@
 import React from "react";
 import RecommendationRequestTable from "main/components/RecommendationRequests/RecommendationRequestTable";
-import { recommendationRequestFixtures } from "fixtures/recommendationRequestFixtures";
+import { recommendationRequestsFixtures } from "fixtures/recommendationRequestFixtures";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { http, HttpResponse } from "msw";
 
 export default {
-  title: "components/RecommendationRequests/RecommendationRequestTable",
+  title: "components/RecommendationRequest/RecommendationRequestTable",
   component: RecommendationRequestTable,
 };
 
-const Template = (args) => {
-  return <RecommendationRequestTable {...args} />;
-};
+const Template = (args) => <RecommendationRequestTable {...args} />;
 
 export const Empty = Template.bind({});
 Empty.args = {
@@ -21,16 +19,16 @@ Empty.args = {
 
 export const ThreeItemsOrdinaryUser = Template.bind({});
 ThreeItemsOrdinaryUser.args = {
-  requests: recommendationRequestFixtures.threeRequests,
+  requests: recommendationRequestsFixtures.fourRequests,
   currentUser: currentUserFixtures.userOnly,
 };
 
-export const ThreeItemsAdminUser = Template.bind({});
-ThreeItemsAdminUser.args = {
-  requests: recommendationRequestFixtures.threeRequests,
+export const FourItemsAdminUser = Template.bind({});
+FourItemsAdminUser.args = {
+  requests: recommendationRequestsFixtures.fourRequests,
   currentUser: currentUserFixtures.adminUser,
 };
-ThreeItemsAdminUser.parameters = {
+FourItemsAdminUser.parameters = {
   msw: [
     http.delete("/api/recommendationrequests", () => {
       return HttpResponse.json({}, { status: 200 });
