@@ -131,7 +131,6 @@ describe("RecommendationRequestEditPage tests", () => {
       );
       const submitButton = screen.getByText("Update");
 
-
       expect(idField).toHaveValue("17");
       expect(requesterEmailField).toHaveValue("test");
       expect(professorEmailField).toHaveValue("tests");
@@ -140,7 +139,6 @@ describe("RecommendationRequestEditPage tests", () => {
       expect(dateNeededField).toHaveValue("1111-11-11T11:11:12");
       expect(doneField).toBeChecked();
       expect(submitButton).toHaveTextContent("Update");
-
 
       fireEvent.change(requesterEmailField, {
         target: { value: "best@student.ucsb.edu" },
