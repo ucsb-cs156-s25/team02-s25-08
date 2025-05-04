@@ -1,9 +1,12 @@
+import { toast } from "react-toastify";
+
 const articleUtils = {
   url: "/api/articles",
 };
 
 export function onDeleteSuccess(message) {
   console.log(message);
+  toast(message);
 }
 
 export function cellToAxiosParamsDelete(cell) {
