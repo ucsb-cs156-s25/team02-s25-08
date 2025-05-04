@@ -118,7 +118,6 @@ describe("RecommendationRequestEditPage tests", () => {
         </QueryClientProvider>,
       );
 
-      // wait for form to load
       const idField = await screen.findByTestId("RecommendationRequestForm-id");
       const requesterEmailField = screen.getByLabelText("Requester Email");
       const professorEmailField = screen.getByLabelText("Professor Email");
@@ -132,7 +131,7 @@ describe("RecommendationRequestEditPage tests", () => {
       );
       const submitButton = screen.getByText("Update");
 
-      // initial values
+
       expect(idField).toHaveValue("17");
       expect(requesterEmailField).toHaveValue("test");
       expect(professorEmailField).toHaveValue("tests");
@@ -142,7 +141,7 @@ describe("RecommendationRequestEditPage tests", () => {
       expect(doneField).toBeChecked();
       expect(submitButton).toHaveTextContent("Update");
 
-      // use valid emails so validation passes
+
       fireEvent.change(requesterEmailField, {
         target: { value: "best@student.ucsb.edu" },
       });
@@ -156,10 +155,8 @@ describe("RecommendationRequestEditPage tests", () => {
       fireEvent.change(dateNeededField, {
         target: { value: "1111-11-11T11:11:14" },
       });
-      // leave the checkbox checked
       fireEvent.click(submitButton);
 
-      // mutation runs and onSuccess fires
       await waitFor(() => expect(mockToast).toHaveBeenCalled());
       expect(mockToast).toHaveBeenCalledWith(
         "Recommendation Request Updated - id: 17 requesterEmail: best",
@@ -169,7 +166,6 @@ describe("RecommendationRequestEditPage tests", () => {
         to: "/recommendationRequest",
       });
 
-      // verify the PUT call
       expect(axiosMock.history.put.length).toBe(1);
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
       expect(axiosMock.history.put[0].data).toBe(

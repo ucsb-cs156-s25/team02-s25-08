@@ -12,7 +12,6 @@ export default function RecommendationRequestCreatePage({ storybook = false }) {
       requesterEmail: recommendationRequest.requesterEmail,
       professorEmail: recommendationRequest.professorEmail,
       explanation: recommendationRequest.explanation,
-      // ensure ISO datetime string has milliseconds for backend/testing
       dateRequested: `${recommendationRequest.dateRequested}.000`,
       dateNeeded: `${recommendationRequest.dateNeeded}.000`,
       done: recommendationRequest.done,
