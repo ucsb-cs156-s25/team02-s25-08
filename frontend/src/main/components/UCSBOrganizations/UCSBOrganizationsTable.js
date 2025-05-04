@@ -39,7 +39,6 @@ export default function UCSBOrganizationsTable({
       Header: "id",
       accessor: "id", // accessor is the "key" in the data
     },
-
     {
       Header: "Organization Code",
       accessor: "orgCode",
