@@ -25,7 +25,7 @@ describe("RecommendationRequestTable tests", () => {
     "Explanation",
     "Date Requested",
     "Date Needed",
-    "Done?"
+    "Done?",
   ];
   const expectedFields = [
     "id",
@@ -34,7 +34,7 @@ describe("RecommendationRequestTable tests", () => {
     "explanation",
     "dateRequested",
     "dateNeeded",
-    "done"
+    "done",
   ];
 
   test("Has the expected column headers and content for ordinary user", () => {
@@ -48,35 +48,35 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // headers
-    expectedHeaders.forEach(h => {
+    expectedHeaders.forEach((h) => {
       expect(screen.getByText(h)).toBeInTheDocument();
     });
 
     // fields in first row
-    expectedFields.forEach(field => {
+    expectedFields.forEach((field) => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`)
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
       ).toBeInTheDocument();
     });
 
     // check some cell values
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`)
-    ).toHaveTextContent("1");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`)
-    ).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
 
     // ordinary user: no edit/delete buttons
     expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`)
+      screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`)
+      screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`),
     ).not.toBeInTheDocument();
   });
 
@@ -91,38 +91,38 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // headers
-    expectedHeaders.forEach(h => {
+    expectedHeaders.forEach((h) => {
       expect(screen.getByText(h)).toBeInTheDocument();
     });
 
     // fields in first row
-    expectedFields.forEach(field => {
+    expectedFields.forEach((field) => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-${field}`)
+        screen.getByTestId(`${testId}-cell-row-0-col-${field}`),
       ).toBeInTheDocument();
     });
 
     // check some cell values
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`)
-    ).toHaveTextContent("1");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`)
-    ).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
 
     // admin user: edit & delete buttons present
     const editButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Edit-button`
+      `${testId}-cell-row-0-col-Edit-button`,
     );
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
 
     const deleteButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Delete-button`
+      `${testId}-cell-row-0-col-Delete-button`,
     );
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
@@ -139,25 +139,25 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // wait for data
     await waitFor(() =>
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`)
-      ).toHaveTextContent("1")
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toHaveTextContent("1"),
     );
 
     const editButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Edit-button`
+      `${testId}-cell-row-0-col-Edit-button`,
     );
     fireEvent.click(editButton);
 
     await waitFor(() =>
       expect(mockedNavigate).toHaveBeenCalledWith(
-        "/recommendationrequests/edit/1"
-      )
+        "/recommendationrequests/edit/1",
+      ),
     );
   });
 
@@ -176,18 +176,18 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // wait for data
     await waitFor(() =>
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`)
-      ).toHaveTextContent("1")
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toHaveTextContent("1"),
     );
 
     const deleteButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Delete-button`
+      `${testId}-cell-row-0-col-Delete-button`,
     );
     fireEvent.click(deleteButton);
 
