@@ -8,5 +8,5 @@
     "projectType": "create-react-app"
   },
   "mutate": ["src/main/**/*.js", "src/main/**/*.jsx"],
-  "thresholds": { "high": 90, "low": 80, "break": null }
+  "thresholds": { "high": 100, "low": 90, "break": 100 }
 }

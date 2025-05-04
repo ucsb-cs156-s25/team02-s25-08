@@ -1,54 +1,57 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
-import ArticlesForm from "main/components/Articles/ArticlesForm";
+import HelpRequestForm from "main/components/HelpRequests/HelpRequestForm";
 import { Navigate } from "react-router-dom";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function ArticlesEditPage({ storybook = false }) {
+export default function HelpRequestEditPage({ storybook = false }) {
   let { id } = useParams();
 
   const {
-    data: article,
+    data: helpRequest,
     _error,
     _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/articles?id=${id}`],
+    [`/api/helprequests?id=${id}`],
     {
       // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
       method: "GET",
-      url: `/api/articles`,
+      url: `/api/helprequests`,
       params: {
         id,
       },
     },
   );
 
-  const objectToAxiosPutParams = (article) => ({
-    url: "/api/articles",
+  const objectToAxiosPutParams = (helpRequest) => ({
+    url: "/api/helprequests",
     method: "PUT",
     params: {
-      id: article.id,
+      id: helpRequest.id,
     },
     data: {
-      title: article.title,
-      url: article.url,
-      explanation: article.explanation,
-      email: article.email,
-      dateAdded: article.dateAdded,
+      requesterEmail: helpRequest.requesterEmail,
+      teamId: helpRequest.teamId,
+      tableOrBreakoutRoom: helpRequest.tableOrBreakoutRoom,
+      requestTime: helpRequest.requestTime,
+      explanation: helpRequest.explanation,
+      solved: helpRequest.solved,
     },
   });
 
-  const onSuccess = (article) => {
-    toast(`Article Updated - id: ${article.id} title: ${article.title}`);
+  const onSuccess = (helpRequest) => {
+    toast(
+      `HelpRequest Updated - id: ${helpRequest.id} requester: ${helpRequest.requesterEmail}`,
+    );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/articles?id=${id}`],
+    [`/api/helprequests?id=${id}`],
   );
 
   const { isSuccess } = mutation;
@@ -58,16 +61,16 @@ export default function ArticlesEditPage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/articles" />;
+    return <Navigate to="/helprequest" />;
   }
 
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Edit Article</h1>
-        {article && (
-          <ArticlesForm
-            initialContents={article}
+        <h1>Edit HelpRequest</h1>
+        {helpRequest && (
+          <HelpRequestForm
+            initialContents={helpRequest}
             submitAction={onSubmit}
             buttonLabel="Update"
           />
