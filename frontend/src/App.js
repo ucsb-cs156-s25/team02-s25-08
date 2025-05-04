@@ -50,7 +50,7 @@ function App() {
         {hasRole(currentUser, "ROLE_USER") && (
           <Route
             exact
-            path="/diningcommonsmenuitem"
+            path="/ucsbdiningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
         )}
@@ -58,12 +58,12 @@ function App() {
           <>
             <Route
               exact
-              path="/diningcommonsmenuitem/edit/:id"
+              path="/ucsbdiningcommonsmenuitem/edit/:id"
               element={<UCSBDiningCommonsMenuItemEditPage />}
             />
             <Route
               exact
-              path="/diningcommonsmenuitem/create"
+              path="/ucsbdiningcommonsmenuitem/create"
               element={<UCSBDiningCommonsMenuItemCreatePage />}
             />
           </>
