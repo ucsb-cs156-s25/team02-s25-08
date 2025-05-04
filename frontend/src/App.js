@@ -27,6 +27,10 @@ import MenuItemReviewIndexPage from "main/pages/MenuItemReview/MenuItemReviewInd
 import MenuItemReviewCreatePage from "main/pages/MenuItemReview/MenuItemReviewCreatePage";
 import MenuItemReviewEditPage from "main/pages/MenuItemReview/MenuItemReviewEditPage";
 
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -48,13 +52,13 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
+
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <Route exact path="/admin/users" element={<AdminUsersPage />} />
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
-          </>
+          <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -70,12 +74,32 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
+          <Route
+            exact
+            path="/recommendationrequest"
+            element={<RecommendationRequestIndexPage />}
+          />
+        )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route
+            exact
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+          />
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
               exact
-              path="/ucsborganizations"
-              element={<UCSBOrganizationsIndexPage />}
+              path="/recommendationrequest/edit/:id"
+              element={<RecommendationRequestEditPage />}
+            />
+            <Route
+              exact
+              path="/recommendationrequest/create"
+              element={<RecommendationRequestCreatePage />}
             />
           </>
         )}
@@ -93,14 +117,9 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/restaurants"
-              element={<RestaurantIndexPage />}
-            />
-          </>
+          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -116,14 +135,13 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/diningcommonsmenuitem"
-              element={<UCSBDiningCommonsMenuItemIndexPage />}
-            />
-          </>
+          <Route
+            exact
+            path="/diningcommonsmenuitem"
+            element={<UCSBDiningCommonsMenuItemIndexPage />}
+          />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -139,10 +157,9 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route exact path="/articles" element={<ArticlesIndexPage />} />
-          </>
+          <Route exact path="/articles" element={<ArticlesIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -158,14 +175,13 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/menuitemreviews"
-              element={<MenuItemReviewIndexPage />}
-            />
-          </>
+          <Route
+            exact
+            path="/menuitemreviews"
+            element={<MenuItemReviewIndexPage />}
+          />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -181,14 +197,9 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/placeholder"
-              element={<PlaceholderIndexPage />}
-            />
-          </>
+          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -204,14 +215,9 @@ function App() {
             />
           </>
         )}
+
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/helprequest"
-              element={<HelpRequestIndexPage />}
-            />
-          </>
+          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
