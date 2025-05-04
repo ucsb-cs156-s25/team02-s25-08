@@ -1,3 +1,5 @@
+// src/App.js
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
@@ -10,6 +12,14 @@ import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
+
+import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
+import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
+import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
+
+import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
+import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
+import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
 import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
 import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
@@ -47,10 +57,10 @@ function App() {
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <Route exact path="/admin/users" element={<AdminUsersPage />} />
         )}
+
+        {/* UCSBDates */}
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
-          </>
+          <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -66,15 +76,25 @@ function App() {
             />
           </>
         )}
+
+        {/* RECOMMENDATION REQUEST (USER) */}
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/recommendationrequest"
-              element={<RecommendationRequestIndexPage />}
-            />
-          </>
+          <Route
+            exact
+            path="/recommendationrequest"
+            element={<RecommendationRequestIndexPage />}
+          />
         )}
+        {/* UCSB ORGANIZATIONS (USER) */}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route
+            exact
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+          />
+        )}
+
+        {/* RECOMMENDATION REQUEST (ADMIN) */}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
@@ -89,14 +109,25 @@ function App() {
             />
           </>
         )}
-        {hasRole(currentUser, "ROLE_USER") && (
+        {/* UCSB ORGANIZATIONS (ADMIN) */}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
             <Route
               exact
-              path="/restaurants"
-              element={<RestaurantIndexPage />}
+              path="/ucsborganizations/edit/:id"
+              element={<UCSBOrganizationsEditPage />}
+            />
+            <Route
+              exact
+              path="/ucsborganizations/create"
+              element={<UCSBOrganizationsCreatePage />}
             />
           </>
+        )}
+
+        {/* RESTAURANTS */}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -112,10 +143,33 @@ function App() {
             />
           </>
         )}
+
+        {/* DINING COMMONS MENU ITEMS */}
         {hasRole(currentUser, "ROLE_USER") && (
+          <Route
+            exact
+            path="/diningcommonsmenuitem"
+            element={<UCSBDiningCommonsMenuItemIndexPage />}
+          />
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
-            <Route exact path="/articles" element={<ArticlesIndexPage />} />
+            <Route
+              exact
+              path="/diningcommonsmenuitem/edit/:id"
+              element={<UCSBDiningCommonsMenuItemEditPage />}
+            />
+            <Route
+              exact
+              path="/diningcommonsmenuitem/create"
+              element={<UCSBDiningCommonsMenuItemCreatePage />}
+            />
           </>
+        )}
+
+        {/* ARTICLES */}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route exact path="/articles" element={<ArticlesIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -131,14 +185,14 @@ function App() {
             />
           </>
         )}
+
+        {/* MENU ITEM REVIEWS */}
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/menuitemreviews"
-              element={<MenuItemReviewIndexPage />}
-            />
-          </>
+          <Route
+            exact
+            path="/menuitemreviews"
+            element={<MenuItemReviewIndexPage />}
+          />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -154,14 +208,10 @@ function App() {
             />
           </>
         )}
+
+        {/* PLACEHOLDER */}
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/placeholder"
-              element={<PlaceholderIndexPage />}
-            />
-          </>
+          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -177,14 +227,10 @@ function App() {
             />
           </>
         )}
+
+        {/* HELP REQUESTS */}
         {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/helprequest"
-              element={<HelpRequestIndexPage />}
-            />
-          </>
+          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
