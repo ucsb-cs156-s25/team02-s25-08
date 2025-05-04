@@ -101,7 +101,6 @@ describe("UCSBOrganizationsCreatePage tests", () => {
       target: { value: "Association of Computing Machinery" },
     });
     fireEvent.change(inactiveInput, { target: { value: "false" } }); // string value
-
     fireEvent.click(createButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
@@ -110,12 +109,14 @@ describe("UCSBOrganizationsCreatePage tests", () => {
       orgCode: "ACM",
       orgTranslationShort: "Association Comp Machine",
       orgTranslation: "Association of Computing Machinery",
-      inactive: "false", // match teacher's string version
+      inactive: "false",
     });
 
     expect(mockToast).toHaveBeenCalledWith(
       "New organization Created - OrgCode: ACM OrgTranslationShort: Association Comp Machine OrgTranslation: Association of Computing Machinery Inactive: false"
     );
+
     expect(mockNavigate).toHaveBeenLastCalledWith({ to: "/ucsborganizations" });
   });
 });
+
