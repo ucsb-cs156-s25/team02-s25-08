@@ -58,6 +58,15 @@ export default function AppNavbar({
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )}
+
+              {hasRole(currentUser, "ROLE_USER") && (
+                <>
+                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
+                    UCSBDiningCommonsMenuItem
+                  </Nav.Link>
+                </>
+              )}
+
               {currentUser && currentUser.loggedIn ? (
                 <>
                   <Nav.Link as={Link} to="/restaurants">
@@ -77,6 +86,9 @@ export default function AppNavbar({
                   </Nav.Link>
                   <Nav.Link as={Link} to="/placeholder">
                     Placeholder
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsborganizations">
+                    UCSBOrganizations
                   </Nav.Link>
                   <Nav.Link as={Link} to="/helprequest">
                     Help Requests
