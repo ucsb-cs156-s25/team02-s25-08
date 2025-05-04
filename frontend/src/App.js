@@ -121,11 +121,7 @@ function App() {
         )}
 
         {hasRole(currentUser, "ROLE_USER") && (
-          <Route
-            exact
-            path="/restaurants"
-            element={<RestaurantIndexPage />}
-          />
+          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -205,11 +201,7 @@ function App() {
         )}
 
         {hasRole(currentUser, "ROLE_USER") && (
-          <Route
-            exact
-            path="/placeholder"
-            element={<PlaceholderIndexPage />}
-          />
+          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
@@ -227,11 +219,7 @@ function App() {
         )}
 
         {hasRole(currentUser, "ROLE_USER") && (
-          <Route
-            exact
-            path="/helprequest"
-            element={<HelpRequestIndexPage />}
-          />
+          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         )}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <>
