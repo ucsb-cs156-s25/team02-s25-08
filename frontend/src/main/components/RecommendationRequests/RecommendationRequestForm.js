@@ -1,5 +1,3 @@
-// frontend/src/main/components/RecommendationRequests/RecommendationRequestForm.js
-
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +6,9 @@ function RecommendationRequestForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
+  validateEmails = true,
 }) {
   // Stryker disable Regex
-  // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
-  // Note that even this complex regex may still need some tweaks
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
   const email_regex = /\S+@\S+\.\S+/;
@@ -54,10 +51,14 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.requesterEmail)}
               {...register("requesterEmail", {
                 required: "Requester email is required.",
-                pattern: {
-                  value: email_regex,
-                  message: "Must be a valid email address.",
-                },
+                ...(validateEmails
+                  ? {
+                      pattern: {
+                        value: email_regex,
+                        message: "Must be a valid email address.",
+                      },
+                    }
+                  : {}),
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -76,10 +77,14 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.professorEmail)}
               {...register("professorEmail", {
                 required: "Professor email is required.",
-                pattern: {
-                  value: email_regex,
-                  message: "Must be a valid email address.",
-                },
+                ...(validateEmails
+                  ? {
+                      pattern: {
+                        value: email_regex,
+                        message: "Must be a valid email address.",
+                      },
+                    }
+                  : {}),
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -117,7 +122,9 @@ function RecommendationRequestForm({
       <Row>
         <Col md={5}>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateRequested">Date Requested</Form.Label>
+            <Form.Label htmlFor="dateRequested">
+              Date Requested (in UTC)
+            </Form.Label>
             <Form.Control
               data-testid="RecommendationRequestForm-dateRequested"
               id="dateRequested"
@@ -139,7 +146,7 @@ function RecommendationRequestForm({
 
         <Col md={5}>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateNeeded">Date Needed</Form.Label>
+            <Form.Label htmlFor="dateNeeded">Date Needed (in UTC)</Form.Label>
             <Form.Control
               data-testid="RecommendationRequestForm-dateNeeded"
               id="dateNeeded"
@@ -164,7 +171,7 @@ function RecommendationRequestForm({
             <Form.Check
               type="checkbox"
               id="done"
-              label="Done?"
+              label="Done? (if checked, job will be marked as done)"
               data-testid="RecommendationRequestForm-done"
               // Stryker disable next-line all
               defaultChecked={initialContents?.done || false}

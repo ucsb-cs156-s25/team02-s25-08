@@ -1,3 +1,5 @@
+// src/App.js
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
