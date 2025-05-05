@@ -174,11 +174,7 @@ describe("RecommendationRequestIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() =>
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`),
-      ).toBeInTheDocument(),
-    );
+    await screen.findByTestId(`${testId}-cell-row-0-col-id`);
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
     );
