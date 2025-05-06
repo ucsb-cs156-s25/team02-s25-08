@@ -4,7 +4,6 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { http, HttpResponse } from "msw";
 
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
-
 import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
 
 export default {
@@ -17,20 +16,16 @@ const Template = () => <UCSBOrganizationsCreatePage storybook={true} />;
 export const Default = Template.bind({});
 Default.parameters = {
   msw: [
-    http.get("/api/currentUser", () => {
-      return HttpResponse.json(apiCurrentUserFixtures.userOnly, {
+    http.get("/api/currentUser", () =>
+      HttpResponse.json(apiCurrentUserFixtures.userOnly, { status: 200 })
+    ),
+    http.get("/api/systemInfo", () =>
+      HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 })
+    ),
+    http.post("/api/ucsborganizations/post", () =>
+      HttpResponse.json(ucsbOrganizationsFixtures.oneUCSBOrganization, {
         status: 200,
-      });
-    }),
-    http.get("/api/systemInfo", () => {
-      return HttpResponse.json(systemInfoFixtures.showingNeither, {
-        status: 200,
-      });
-    }),
-    http.post("/api/ucsborganizations/post", () => {
-      return HttpResponse.json(ucsbOrganizationsFixtures.oneUCSBOrganization, {
-        status: 200,
-      });
-    }),
+      })
+    ),
   ],
 };

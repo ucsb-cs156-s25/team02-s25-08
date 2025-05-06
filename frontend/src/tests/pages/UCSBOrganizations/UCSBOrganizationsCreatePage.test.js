@@ -54,7 +54,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     await waitFor(() => {
@@ -63,8 +63,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
   });
 
   test("on submit, makes request to backend, and redirects to /ucsborganizations", async () => {
-    const ucsborganization = {
-      id: 4,
+    const newOrg = {
       orgCode: "ACM",
       orgTranslationShort: "Association Comp Machine",
       orgTranslation: "Association of Computing Machinery",
@@ -73,55 +72,35 @@ describe("UCSBOrganizationsCreatePage tests", () => {
 
     axiosMock
       .onPost("/api/ucsborganizations/post")
-      .reply(202, ucsborganization);
+      .reply(202, newOrg);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
-    const orgCodeInput = screen.getByLabelText("Org Code");
-    expect(orgCodeInput).toBeInTheDocument();
-
-    const orgTranslationShortInput = screen.getByLabelText(
-      "Org Translation Short",
-    );
-    expect(orgTranslationShortInput).toBeInTheDocument();
-
-    const orgTranslationInput = screen.getByLabelText("Org Translation");
-    expect(orgTranslationInput).toBeInTheDocument();
-
-    const inactiveInput = screen.getByLabelText("Inactive");
-    expect(inactiveInput).toBeInTheDocument();
-
-    const createButton = screen.getByText("Create");
-    expect(createButton).toBeInTheDocument();
-
-    fireEvent.change(orgCodeInput, { target: { value: "ACM" } });
-    fireEvent.change(orgTranslationShortInput, {
-      target: { value: "Association Comp Machine" },
+    fireEvent.change(screen.getByLabelText("Org Code"), {
+      target: { value: newOrg.orgCode },
     });
-    fireEvent.change(orgTranslationInput, {
-      target: { value: "Association of Computing Machinery" },
+    fireEvent.change(screen.getByLabelText("Org Translation Short"), {
+      target: { value: newOrg.orgTranslationShort },
     });
-    fireEvent.change(inactiveInput, { target: { value: false } });
+    fireEvent.change(screen.getByLabelText("Org Translation"), {
+      target: { value: newOrg.orgTranslation },
+    });
+    fireEvent.click(screen.getByLabelText("Inactive")); // toggle checkbox if needed
 
-    fireEvent.click(createButton);
+    fireEvent.click(screen.getByText("Create"));
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-    expect(axiosMock.history.post[0].params).toEqual({
-      orgCode: "ACM",
-      orgTranslationShort: "Association Comp Machine",
-      orgTranslation: "Association of Computing Machinery",
-      inactive: false,
-    });
+    expect(axiosMock.history.post[0].params).toEqual(newOrg);
 
     expect(mockToast).toHaveBeenCalledWith(
-      "New organization Created - id: 4 orgCode: ACM",
+      "New UCSB Organization Created — orgCode: ACM orgTranslationShort: Association Comp Machine"
     );
 
     expect(mockNavigate).toHaveBeenLastCalledWith({ to: "/ucsborganizations" });

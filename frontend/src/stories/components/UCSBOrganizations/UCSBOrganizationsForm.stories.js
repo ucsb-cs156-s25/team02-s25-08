@@ -7,12 +7,9 @@ export default {
   component: UCSBOrganizationsForm,
 };
 
-const Template = (args) => {
-  return <UCSBOrganizationsForm {...args} />;
-};
+const Template = (args) => <UCSBOrganizationsForm {...args} />;
 
 export const Create = Template.bind({});
-
 Create.args = {
   buttonLabel: "Create",
   submitAction: (data) => {
@@ -22,9 +19,8 @@ Create.args = {
 };
 
 export const Update = Template.bind({});
-
 Update.args = {
-  initialContents: ucsbOrganizationsFixtures.oneUCSBOrganization[0],
+  initialContents: ucsbOrganizationsFixtures.oneUCSBOrganization,
   buttonLabel: "Update",
   submitAction: (data) => {
     console.log("Submit was clicked with data: ", data);

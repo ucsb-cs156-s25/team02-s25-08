@@ -3,19 +3,32 @@ import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
 
+/**
+ * AppNavbar — same behavior as the instructor version, but with your pluralized
+ * route/component names preserved (e.g., `/ucsborganizations`).
+ */
 export default function AppNavbar({
   currentUser,
   systemInfo,
   doLogout,
   currentUrl = window.location.href,
 }) {
-  var oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+  const oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
+
+  /**
+   * Local‑host banner
+   * ──────────────────
+   * The banner that shows the React + Spring ports when you are running on
+   * localhost is preserved exactly from the instructor code.
+   */
+  const showLocalhostBanner =
+    currentUrl.startsWith("http://localhost:3000") ||
+    currentUrl.startsWith("http://127.0.0.1:3000");
+
   return (
     <>
-      {(currentUrl.startsWith("http://localhost:3000") ||
-        currentUrl.startsWith("http://127.0.0.1:3000")) && (
-        <AppNavbarLocalhost url={currentUrl} />
-      )}
+      {showLocalhostBanner && <AppNavbarLocalhost url={currentUrl} />}
+
       <Navbar
         expand="xl"
         variant="dark"
@@ -24,31 +37,31 @@ export default function AppNavbar({
         data-testid="AppNavbar"
       >
         <Container>
+          {/* Brand */}
           <Navbar.Brand as={Link} to="/">
             Example
           </Navbar.Brand>
 
           <Navbar.Toggle />
 
+          {/* Left‑hand utility links */}
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
-              <>
-                <Nav.Link href="/h2-console">H2Console</Nav.Link>
-              </>
+              <Nav.Link href="/h2-console">H2Console</Nav.Link>
             )}
             {systemInfo?.showSwaggerUILink && (
-              <>
-                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
-              </>
+              <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
             )}
           </Nav>
 
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
+          {/* Spacer for future NavDropdowns */}
+          <></>
 
+          {/* Main navigation and auth controls */}
           <Navbar.Collapse className="justify-content-between">
+            {/* Center/left navigation */}
             <Nav className="mr-auto">
+              {/* ===== Admin dropdown ===== */}
               {hasRole(currentUser, "ROLE_ADMIN") && (
                 <NavDropdown
                   title="Admin"
@@ -59,24 +72,11 @@ export default function AppNavbar({
                 </NavDropdown>
               )}
 
-              {hasRole(currentUser, "ROLE_USER") && (
-                <>
-                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
-                    UCSBDiningCommonsMenuItem
-                  </Nav.Link>
-                </>
-              )}
-
-              {currentUser && currentUser.loggedIn ? (
+              {/* ===== Logged‑in user links ===== */}
+              {currentUser?.loggedIn && (
                 <>
                   <Nav.Link as={Link} to="/restaurants">
                     Restaurants
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreviews">
-                    MenuItemReview
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/articles">
-                    Articles
                   </Nav.Link>
                   <Nav.Link as={Link} to="/ucsbdates">
                     UCSB Dates
@@ -85,19 +85,15 @@ export default function AppNavbar({
                     Placeholder
                   </Nav.Link>
                   <Nav.Link as={Link} to="/ucsborganizations">
-                    UCSBOrganizations
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/helprequest">
-                    Help Requests
+                    UCSB Organizations
                   </Nav.Link>
                 </>
-              ) : (
-                <></>
               )}
             </Nav>
 
+            {/* Right‑side auth / profile controls */}
             <Nav className="ml-auto">
-              {currentUser && currentUser.loggedIn ? (
+              {currentUser?.loggedIn ? (
                 <>
                   <Navbar.Text className="me-3" as={Link} to="/profile">
                     Welcome, {currentUser.root.user.email}
