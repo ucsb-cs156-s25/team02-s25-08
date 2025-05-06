@@ -1,17 +1,42 @@
+import React from "react";
+import { useBackend } from "main/utils/useBackend";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationsTable";
+import { useCurrentUser, hasRole } from "main/utils/currentUser";
+import { Button } from "react-bootstrap";
 
 export default function UCSBOrganizationsIndexPage() {
-  // Stryker disable all : placeholder for future implementation
+  const currentUser = useCurrentUser();
+
+  const { data: ucsborganizations } = useBackend(
+    ["/api/ucsborganizations/all"],
+    { method: "GET", url: "/api/ucsborganizations/all" },
+    []
+  );
+
+  const createButton = () => {
+    if (hasRole(currentUser, "ROLE_ADMIN")) {
+      return (
+        <Button
+          variant="primary"
+          href="/ucsborganizations/create"
+          style={{ float: "right" }}
+        >
+          Create UCSB Organization
+        </Button>
+      );
+    }
+  };
+
   return (
     <BasicLayout>
       <div className="pt-2">
-        <h1>Index page not yet implemented</h1>
-        <p>
-          <a href="/ucsborganizations/create">Create</a>
-        </p>
-        <p>
-          <a href="/ucsborganizations/edit/1">Edit</a>
-        </p>
+        {createButton()}
+        <h1>UCSBOrganizations</h1>
+        <UCSBOrganizationsTable
+          ucsborganizations={ucsborganizations}
+          currentUser={currentUser}
+        />
       </div>
     </BasicLayout>
   );

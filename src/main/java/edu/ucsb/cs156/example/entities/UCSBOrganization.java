@@ -1,16 +1,13 @@
 package edu.ucsb.cs156.example.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
- * This is a JPA entity that represents a UCSBOrganization.
+ * JPA entity representing a UCSB Organization.
+ * Matches the instructor logic (orgCode is the primary key) but keeps
+ * the exact class/field names you’ve been using elsewhere.
  */
 @Data
 @AllArgsConstructor
@@ -18,12 +15,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity(name = "ucsborganization")
 public class UCSBOrganization {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+    @Id
+    private String orgCode;  
 
-  private String orgCode;
-  private String orgTranslationShort;
-  private String orgTranslation;
-  private boolean inactive;
+    private String orgTranslationShort;
+    private String orgTranslation;
+    private boolean inactive;
 }
+ 
