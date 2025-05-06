@@ -54,7 +54,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
@@ -80,13 +80,15 @@ describe("UCSBOrganizationsCreatePage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const orgCodeInput = screen.getByLabelText("Org Code");
     expect(orgCodeInput).toBeInTheDocument();
 
-    const orgTranslationShortInput = screen.getByLabelText("Org Translation Short");
+    const orgTranslationShortInput = screen.getByLabelText(
+      "Org Translation Short",
+    );
     expect(orgTranslationShortInput).toBeInTheDocument();
 
     const orgTranslationInput = screen.getByLabelText("Org Translation");
@@ -99,8 +101,12 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     expect(createButton).toBeInTheDocument();
 
     fireEvent.change(orgCodeInput, { target: { value: "ACM" } });
-    fireEvent.change(orgTranslationShortInput, { target: { value: "Association Comp Machine" } });
-    fireEvent.change(orgTranslationInput, { target: { value: "Association of Computing Machinery" } });
+    fireEvent.change(orgTranslationShortInput, {
+      target: { value: "Association Comp Machine" },
+    });
+    fireEvent.change(orgTranslationInput, {
+      target: { value: "Association of Computing Machinery" },
+    });
     fireEvent.change(inactiveInput, { target: { value: false } });
 
     fireEvent.click(createButton);
@@ -115,7 +121,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     });
 
     expect(mockToast).toHaveBeenCalledWith(
-      "New organization Created - id: 4 orgCode: ACM"
+      "New organization Created - id: 4 orgCode: ACM",
     );
 
     expect(mockNavigate).toHaveBeenLastCalledWith({ to: "/ucsborganizations" });
