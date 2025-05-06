@@ -49,3 +49,4 @@ const recommendationRequestsFixtures = {
 };
 
 export { recommendationRequestsFixtures };
+export const recommendationRequestFixtures = recommendationRequestsFixtures;

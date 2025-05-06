@@ -3,42 +3,47 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 
-// UCSB Dates
+// === UCSB Dates ===
 import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
-// Restaurants
+// === Restaurants ===
 import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
-// UCSB Organizations (plural to match your folder names)
+// === UCSB Organizations ===
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
 
-// Dining Commons Menu Items
+// === Recommendation Request ===
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
+
+// === Dining Commons Menu Items ===
 import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
-// Articles
+// === Articles ===
 import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
 import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
 import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
 
-// Menu Item Reviews
+// === Menu Item Reviews ===
 import MenuItemReviewIndexPage from "main/pages/MenuItemReview/MenuItemReviewIndexPage";
 import MenuItemReviewCreatePage from "main/pages/MenuItemReview/MenuItemReviewCreatePage";
 import MenuItemReviewEditPage from "main/pages/MenuItemReview/MenuItemReviewEditPage";
 
-// Placeholder
+// === Placeholder ===
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 
-// Help Request
+// === Help Request ===
 import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
 import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
 import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
@@ -54,16 +59,16 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public routes */}
+        {/* Public */}
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
 
-        {/* Admin‑only routes */}
+        {/* Admin Only */}
         {hasRole(currentUser, "ROLE_ADMIN") && (
           <Route exact path="/admin/users" element={<AdminUsersPage />} />
         )}
 
-        {/* ===================== UCSB Dates ===================== */}
+        {/* ===== UCSB Dates ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         )}
@@ -74,7 +79,18 @@ function App() {
           </>
         )}
 
-        {/* ===================== UCSB Organizations ===================== */}
+        {/* ===== Recommendation Request ===== */}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route exact path="/recommendationrequest" element={<RecommendationRequestIndexPage />} />
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route exact path="/recommendationrequest/create" element={<RecommendationRequestCreatePage />} />
+            <Route exact path="/recommendationrequest/edit/:id" element={<RecommendationRequestEditPage />} />
+          </>
+        )}
+
+        {/* ===== UCSB Organizations ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/ucsborganizations" element={<UCSBOrganizationsIndexPage />} />
         )}
@@ -85,7 +101,7 @@ function App() {
           </>
         )}
 
-        {/* ===================== Restaurants ===================== */}
+        {/* ===== Restaurants ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
         )}
@@ -96,7 +112,7 @@ function App() {
           </>
         )}
 
-        {/* ===================== Dining Commons Menu Items ===================== */}
+        {/* ===== Dining Commons Menu Items ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/diningcommonsmenuitem" element={<UCSBDiningCommonsMenuItemIndexPage />} />
         )}
@@ -107,7 +123,7 @@ function App() {
           </>
         )}
 
-        {/* ===================== Articles ===================== */}
+        {/* ===== Articles ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/articles" element={<ArticlesIndexPage />} />
         )}
@@ -118,7 +134,7 @@ function App() {
           </>
         )}
 
-        {/* ===================== Menu Item Reviews ===================== */}
+        {/* ===== Menu Item Reviews ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/menuitemreviews" element={<MenuItemReviewIndexPage />} />
         )}
@@ -129,7 +145,7 @@ function App() {
           </>
         )}
 
-        {/* ===================== Placeholder ===================== */}
+        {/* ===== Placeholder ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         )}
@@ -140,7 +156,7 @@ function App() {
           </>
         )}
 
-        {/* ===================== Help Request ===================== */}
+        {/* ===== Help Request ===== */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         )}
