@@ -51,7 +51,7 @@ describe("RecommendationRequestIndexPage tests", () => {
 
   test("Renders with Create Button for admin user", async () => {
     setupAdminUser();
-    axiosMock.onGet("/api/recommendationRequest/all").reply(200, []);
+    axiosMock.onGet("/api/recommendationrequests/all").reply(200, []);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -74,7 +74,7 @@ describe("RecommendationRequestIndexPage tests", () => {
   test("renders four recommendation requests correctly for regular user", async () => {
     setupUserOnly();
     axiosMock
-      .onGet("/api/recommendationRequest/all")
+      .onGet("/api/recommendationrequests/all")
       .reply(200, recommendationRequestsFixtures.fourRequests);
 
     render(
@@ -136,7 +136,7 @@ describe("RecommendationRequestIndexPage tests", () => {
 
   test("renders empty table when backend unavailable, user only", async () => {
     setupUserOnly();
-    axiosMock.onGet("/api/recommendationRequest/all").timeout();
+    axiosMock.onGet("/api/recommendationrequests/all").timeout();
     const restoreConsole = mockConsole();
 
     render(
@@ -152,7 +152,7 @@ describe("RecommendationRequestIndexPage tests", () => {
     });
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/recommendationRequest/all",
+      "Error communicating with backend via GET on /api/recommendationrequests/all",
     );
     restoreConsole();
   });
@@ -160,10 +160,10 @@ describe("RecommendationRequestIndexPage tests", () => {
   test("what happens when you click delete, admin", async () => {
     setupAdminUser();
     axiosMock
-      .onGet("/api/recommendationRequest/all")
+      .onGet("/api/recommendationrequests/all")
       .reply(200, recommendationRequestsFixtures.fourRequests);
     axiosMock
-      .onDelete("/api/recommendationRequest")
+      .onDelete("/api/recommendationrequests")
       .reply(200, "Recommendation Request with id 1 was deleted");
 
     render(
@@ -189,7 +189,7 @@ describe("RecommendationRequestIndexPage tests", () => {
     );
     // verify axios DELETE was called
     expect(axiosMock.history.delete.length).toBe(1);
-    expect(axiosMock.history.delete[0].url).toBe("/api/recommendationRequest");
+    expect(axiosMock.history.delete[0].url).toBe("/api/recommendationrequests");
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
