@@ -1,3 +1,4 @@
+
 title: Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   When reviewing a PR for this repo, you can see what the documentation,
@@ -17,7 +18,9 @@ collections:
     permalink: /branches/:path/
 
 repo_name: "TBD"
+
+
 repo: ucsb-cs156-s25/team02-s25-08
 owner: ucsb-cs156-s25
 repo_name: team02-s25-08
-pull_requests: [{"author":{"id":"U_kgDOCM7nFQ","is_bot":false,"login":"rbuneti","name":""},"headRefName":"rb-final-fixes","number":114,"title":"rb- fixed the error messages on index page, and added a utils.test file.","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/114"},{"author":{"id":"U_kgDOB96_2w","is_bot":false,"login":"hannuhsu","name":"Hannah Su"},"headRefName":"newh","number":113,"title":"Index Page for UCSBOrganization plus tests and stories #23","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/113"},{"author":{"id":"U_kgDOB96_2w","is_bot":false,"login":"hannuhsu","name":"Hannah Su"},"headRefName":"create22","number":108,"title":"hs - Page for UCSBOrganization plus tests and stories","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/108"},{"author":{"id":"U_kgDOB96_2w","is_bot":false,"login":"hannuhsu","name":"Hannah Su"},"headRefName":"createpg","number":94,"title":"hs - Create Page for UCSBOrganization plus tests and stories","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/94"}]
+pull_requests: [{"author":{"id":"U_kgDOCu9O7Q","is_bot":false,"login":"nathanalexander626","name":"Nathan Alexander"},"headRefName":"syncing-test","number":116,"title":"deployment sync attempt","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/116"},{"author":{"id":"U_kgDOB96_2w","is_bot":false,"login":"hannuhsu","name":"Hannah Su"},"headRefName":"newh","number":113,"title":"Index Page for UCSBOrganization plus tests and stories #23","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/113"},{"author":{"id":"U_kgDOB96_2w","is_bot":false,"login":"hannuhsu","name":"Hannah Su"},"headRefName":"create22","number":108,"title":"hs - Page for UCSBOrganization plus tests and stories","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/108"},{"author":{"id":"U_kgDOB96_2w","is_bot":false,"login":"hannuhsu","name":"Hannah Su"},"headRefName":"createpg","number":94,"title":"hs - Create Page for UCSBOrganization plus tests and stories","url":"https://github.com/ucsb-cs156-s25/team02-s25-08/pull/94"}]
