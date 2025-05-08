@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export default function RecommendationRequestCreatePage({ storybook = false }) {
   const objectToAxiosParams = (recommendationRequest) => ({
-    url: "/api/recommendationRequest/post",
+    url: "/api/recommendationrequests/post",
     method: "POST",
     params: {
       requesterEmail: recommendationRequest.requesterEmail,
@@ -28,7 +28,7 @@ export default function RecommendationRequestCreatePage({ storybook = false }) {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/recommendationRequest/all"],
+    ["/api/recommendationrequests/all"],
   );
 
   const { isSuccess } = mutation;

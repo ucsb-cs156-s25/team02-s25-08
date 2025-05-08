@@ -58,40 +58,34 @@ export default function AppNavbar({
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )}
-
-              {hasRole(currentUser, "ROLE_USER") && (
-                <>
-                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
-                    UCSBDiningCommonsMenuItem
-                  </Nav.Link>
-                </>
-              )}
-
               {currentUser && currentUser.loggedIn ? (
                 <>
-                  <Nav.Link as={Link} to="/restaurants">
-                    Restaurants
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreviews">
-                    MenuItemReview
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/articles">
                     Articles
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdates">
-                    UCSB Dates
+                  <Nav.Link as={Link} to="/helprequest">
+                    Help Requests
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/menuitemreviews">
+                    Menu Item Review
                   </Nav.Link>
                   <Nav.Link as={Link} to="/recommendationrequest">
                     Recommendation Request
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">
-                    Placeholder
+                  <Nav.Link as={Link} to="/restaurants">
+                    Restaurants
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdates">
+                    UCSB Dates
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">
+                    UCSB Dining Commons MenuItem
                   </Nav.Link>
                   <Nav.Link as={Link} to="/ucsborganizations">
-                    UCSBOrganizations
+                    UCSB Organizations
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/helprequest">
-                    Help Requests
+                  <Nav.Link as={Link} to="/placeholder">
+                    Placeholder
                   </Nav.Link>
                 </>
               ) : (

@@ -33,7 +33,7 @@
     "check-format": "prettier --check \"src/**/*.{js,jsx}\"",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o frontend/chromatic_static_83"
+    "build-storybook": "storybook build"
   },
   "browserslist": {
     "production": [
@@ -74,7 +74,7 @@
     "nyc": "^17.0.0",
     "prettier": "^3.3.3",
     "prop-types": "^15.8.1",
-    "storybook": "^8.2.9",
+    "storybook": "8.2.9",
     "typescript-eslint": "^8.2.0",
     "webpack": "^5.93.0"
   },
