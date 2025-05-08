@@ -54,6 +54,27 @@ function App() {
         {hasRole(currentUser, "ROLE_USER") && (
           <Route
             exact
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+          />
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/ucsborganizations/edit/:id"
+              element={<UCSBOrganizationsEditPage />}
+            />
+            <Route
+              exact
+              path="/ucsborganizations/create"
+              element={<UCSBOrganizationsCreatePage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route
+            exact
             path="/ucsbdiningcommonsmenuitem"
             element={<UCSBDiningCommonsMenuItemIndexPage />}
           />
