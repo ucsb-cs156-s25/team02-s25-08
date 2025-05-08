@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export default function UCSBOrganizationsCreatePage({ storybook = false }) {
   const objectToAxiosParams = (ucsborganization) => ({
-    url: "/api/ucsborganizations/post",
+    url: "/api/ucsborganization/post",
     method: "POST",
     params: {
       orgCode: ucsborganization.orgCode,
@@ -21,10 +21,13 @@ export default function UCSBOrganizationsCreatePage({ storybook = false }) {
       `New organization Created - id: ${ucsborganization.id} orgCode: ${ucsborganization.orgCode}`,
     );
   };
-
-  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, [
-    "/api/ucsborganization/all",
-  ]);
+  
+  const mutation = useBackendMutation(
+    objectToAxiosParams,
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    ["/api/ucsborganization/all"],
+  );
 
   const { isSuccess } = mutation;
 

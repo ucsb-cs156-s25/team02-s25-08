@@ -72,7 +72,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     };
 
     axiosMock
-      .onPost("/api/ucsborganizations/post")
+      .onPost("/api/ucsborganization/post")
       .reply(202, ucsborganization);
 
     render(
