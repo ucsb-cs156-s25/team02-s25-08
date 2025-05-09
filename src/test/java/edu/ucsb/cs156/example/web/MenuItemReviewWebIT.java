@@ -51,7 +51,7 @@ public class MenuItemReviewWebIT extends WebTestCase {
     public void regular_user_cannot_create_menuitemreview() throws Exception {
         setupUser(false);
 
-        page.getByText("MenuItemReview").click();
+        page.getByText("Menu Item Review").click();
 
         assertThat(page.getByText("Create MenuItemReview")).not().isVisible();
         assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-itemId")).not().isVisible();
