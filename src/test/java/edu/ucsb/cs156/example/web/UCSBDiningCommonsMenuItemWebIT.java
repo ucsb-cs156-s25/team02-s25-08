@@ -25,19 +25,26 @@ public class UCSBDiningCommonsMenuItemWebIT extends WebTestCase {
 
         page.getByText("Create UCSBDiningCommonsMenuItem").click();
         assertThat(page.getByText("Create New UCSBDiningCommonsMenuItem")).isVisible();
-        page.getByTestId("UCSBDiningCommonsMenuItemForm-name").fill("Freebirds");
-        page.getByTestId("UCSBDiningCommonsMenuItemForm-description").fill("Build your own burrito chain");
+        page.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode").fill("Portola");
+        page.getByTestId("UCSBDiningCommonsMenuItemForm-station").fill("International");
+        page.getByTestId("UCSBDiningCommonsMenuItemForm-name").fill("Avocado Sushi");
         page.getByTestId("UCSBDiningCommonsMenuItemForm-submit").click();
 
-        assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-description"))
-                .hasText("Build your own burrito chain");
+        assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-name"))
+                .hasText("Avocado Sushi");
 
         page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-Edit-button").click();
         assertThat(page.getByText("Edit UCSBDiningCommonsMenuItem")).isVisible();
-        page.getByTestId("UCSBDiningCommonsMenuItemForm-description").fill("THE BEST");
+        page.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode").fill("DLG");
+        page.getByTestId("UCSBDiningCommonsMenuItemForm-station").fill("Desert");
+        page.getByTestId("UCSBDiningCommonsMenuItemForm-name").fill("Toll House Cookie");
         page.getByTestId("UCSBDiningCommonsMenuItemForm-submit").click();
 
         assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-description")).hasText("THE BEST");
+
+        assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-diningCommonsCode")).hasText("DLG");
+        assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-station")).hasText("Desert");
+        assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-name")).hasText("Toll House Cookie");
 
         page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-Delete-button").click();
 
