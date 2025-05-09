@@ -93,7 +93,7 @@ public class UCSBDiningCommonsMenuItemIT {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/ucsbdiningcommonsmenuitem/post?name=Chipotle&description=Mexican")
+                                post("/api/ucsbdiningcommonsmenuitem/post?diningCommonsCode=sampleDiningCommonsCode&name=Portola&station=TheBrick")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
