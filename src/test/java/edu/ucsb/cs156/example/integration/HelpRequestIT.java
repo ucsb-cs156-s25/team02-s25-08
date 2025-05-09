@@ -66,7 +66,7 @@ public class HelpRequestIT {
 
                 HelpRequest helpRequest = HelpRequest.builder()
                                 .requesterEmail("ndalexander@ucsb.edu")
-                                .teamId("s25-5pm-08")
+                                .teamId("s25-5pm-8")
                                 .tableOrBreakoutRoom("8")
                                 .requestTime(rt)
                                 .explanation("missing required files for progression")
