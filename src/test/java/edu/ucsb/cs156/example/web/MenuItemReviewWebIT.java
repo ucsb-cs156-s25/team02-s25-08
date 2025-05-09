@@ -21,7 +21,7 @@ public class MenuItemReviewWebIT extends WebTestCase {
     public void admin_user_can_create_edit_delete_menuitemreview() throws Exception {
         setupUser(true);
 
-        page.getByText("MenuItemReview").click();
+        page.getByText("Menu Item Review").click();
 
         page.getByText("Create MenuItemReview").click();
         assertThat(page.getByText("Create New MenuItemReview")).isVisible();
