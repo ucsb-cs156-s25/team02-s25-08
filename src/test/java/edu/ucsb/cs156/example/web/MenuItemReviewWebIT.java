@@ -11,7 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 import edu.ucsb.cs156.example.WebTestCase;
-import java.time.LocalDateTime;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -19,38 +18,33 @@ import java.time.LocalDateTime;
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class MenuItemReviewWebIT extends WebTestCase {
     @Test
-    @Autowired
-    MenuItemReviewRepository menuItemReviewRepository;
     public void admin_user_can_create_edit_delete_menuitemreview() throws Exception {
-
-        LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
-        MenuItemReview menuitemreview = MenuItemReview.builder()
-                        .itemId(27)
-                        .reviewerEmail("cgaucho@ucsb.edu")
-                        .stars(5)
-                        .dateReviewed(ldt)
-                        .comments("good")
-                        .build();
-                        
-        menuItemReviewRepository.save(menuitemreview);
-
         setupUser(true);
 
         page.getByText("MenuItemReview").click();
 
-        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-reviewerEmail"))
-                .hasText("cgaucho@ucsb.edu");
+        page.getByText("Create MenuItemReview").click();
+        assertThat(page.getByText("Create New MenuItemReview")).isVisible();
+        page.getByTestId("MenuItemReviewForm-itemId").fill("1");
+        page.getByTestId("MenuItemReviewForm-reviewerEmail").fill("cgaucho@ucsb.edu");
+        page.getByTestId("MenuItemReviewForm-stars").fill("5");
+        page.getByTestId("MenuItemReviewForm-dateReviewed").fill("2022-01-03T00:00:00");
+        page.getByTestId("MenuItemReviewForm-comments").fill("good");
+        page.getByTestId("MenuItemReviewForm-submit").click();
+
+        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-comments"))
+                .hasText("good");
 
         page.getByTestId("MenuItemReviewTable-cell-row-0-col-Edit-button").click();
         assertThat(page.getByText("Edit MenuItemReview")).isVisible();
         page.getByTestId("MenuItemReviewForm-comments").fill("THE BEST");
         page.getByTestId("MenuItemReviewForm-submit").click();
 
-        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-description")).hasText("THE BEST");
+        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-comments")).hasText("THE BEST");
 
         page.getByTestId("MenuItemReviewTable-cell-row-0-col-Delete-button").click();
 
-        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-name")).not().isVisible();
+        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-itemId")).not().isVisible();
     }
 
     @Test
@@ -60,6 +54,6 @@ public class MenuItemReviewWebIT extends WebTestCase {
         page.getByText("MenuItemReview").click();
 
         assertThat(page.getByText("Create MenuItemReview")).not().isVisible();
-        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-name")).not().isVisible();
+        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-itemId")).not().isVisible();
     }
 }
