@@ -102,7 +102,7 @@ public class MenuItemReviewIT {
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
-                String expectedJson = mapper.writeValueAsString(menuitemreview);
+                String expectedJson = mapper.writeValueAsString(menuitemreview1);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
