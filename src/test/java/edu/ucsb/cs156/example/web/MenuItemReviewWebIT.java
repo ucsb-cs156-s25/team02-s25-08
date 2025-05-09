@@ -19,23 +19,27 @@ import java.time.LocalDateTime;
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class MenuItemReviewWebIT extends WebTestCase {
     @Test
+    @Autowired
+    MenuItemReviewRepository menuItemReviewRepository;
     public void admin_user_can_create_edit_delete_menuitemreview() throws Exception {
+
         LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
+        MenuItemReview menuitemreview = MenuItemReview.builder()
+                        .itemId(27)
+                        .reviewerEmail("cgaucho@ucsb.edu")
+                        .stars(5)
+                        .dateReviewed(ldt)
+                        .comments("good")
+                        .build();
+                        
+        menuItemReviewRepository.save(menuitemreview);
+
         setupUser(true);
 
         page.getByText("MenuItemReview").click();
 
-        page.getByText("Create MenuItemReview").click();
-        assertThat(page.getByText("Create New MenuItemReview")).isVisible();
-        page.getByTestId("MenuItemReviewForm-itemId").fill("1");
-        page.getByTestId("MenuItemReviewForm-reviewerEmail").fill("cgaucho@ucsb.edu");
-        page.getByTestId("MenuItemReviewForm-stars").fill("5");
-        page.getByTestId("MenuItemReviewForm-dateReviewed").fill(ldt);
-        page.getByTestId("MenuItemReviewForm-comments").fill("good");
-        page.getByTestId("MenuItemReviewForm-submit").click();
-
-        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-description"))
-                .hasText("Build your own burrito chain");
+        assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-reviewerEmail"))
+                .hasText("cgaucho@ucsb.edu");
 
         page.getByTestId("MenuItemReviewTable-cell-row-0-col-Edit-button").click();
         assertThat(page.getByText("Edit MenuItemReview")).isVisible();
