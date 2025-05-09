@@ -28,7 +28,7 @@ public class MenuItemReviewWebIT extends WebTestCase {
         page.getByTestId("MenuItemReviewForm-itemId").fill("1");
         page.getByTestId("MenuItemReviewForm-reviewerEmail").fill("cgaucho@ucsb.edu");
         page.getByTestId("MenuItemReviewForm-stars").fill("5");
-        page.getByTestId("MenuItemReviewForm-dateReviewed").fill("2022-01-03T00:00:00");
+        page.getByTestId("MenuItemReviewForm-dateReviewed").fill("2020-03-02T05:15");
         page.getByTestId("MenuItemReviewForm-comments").fill("good");
         page.getByTestId("MenuItemReviewForm-submit").click();
 
