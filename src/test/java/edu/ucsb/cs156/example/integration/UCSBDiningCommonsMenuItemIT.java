@@ -86,6 +86,7 @@ public class UCSBDiningCommonsMenuItemIT {
                 // arrange
 
                 UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem1 = UCSBDiningCommonsMenuItem.builder()
+                            .id(1L)
                             .diningCommonsCode("sampleDiningCommonsCode")
                             .name("Portola")
                             .station("TheBrick")
