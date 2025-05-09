@@ -32,7 +32,6 @@ export default function UCSBOrganizationsTable({
   const deleteCallback = async (cell) => {
     deleteMutation.mutate(cell);
   };
-  
 
   const columns = [
     {

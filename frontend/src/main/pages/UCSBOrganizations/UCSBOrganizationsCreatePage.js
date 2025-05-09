@@ -21,7 +21,7 @@ export default function UCSBOrganizationsCreatePage({ storybook = false }) {
       `New organization Created - id: ${ucsborganization.id} orgCode: ${ucsborganization.orgCode}`,
     );
   };
-  
+
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
