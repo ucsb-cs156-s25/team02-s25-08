@@ -104,9 +104,11 @@ public class ArticlesIT {
 
                 // assert
                 Articles savedArticle = articlesRepository.findById(1L).orElse(null);
+                savedArticle.setDateAdded(savedArticle.getDateAdded().withNano((savedArticle.getDateAdded().getNano() / 1000) * 1000)); // truncate to microseconds
                 String expectedJson = mapper.writeValueAsString(savedArticle);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
+
         }
         // test
 }
