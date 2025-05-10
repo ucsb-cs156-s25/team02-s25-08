@@ -21,11 +21,10 @@ export default function UCSBOrganizationsTable({
   };
 
   // Stryker disable all : hard to test for query caching
-
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/ucsborganizations/all"],
+    ["/api/ucsborganization/all"],
   );
   // Stryker restore all
 
@@ -37,7 +36,7 @@ export default function UCSBOrganizationsTable({
   const columns = [
     {
       Header: "id",
-      accessor: "id", // accessor is the "key" in the data
+      accessor: "id",
     },
     {
       Header: "Organization Code",
