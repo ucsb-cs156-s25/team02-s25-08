@@ -79,7 +79,7 @@ export default function AppNavbar({
                     UCSB Dates
                   </Nav.Link>
                   <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">
-                    UCSB Dining Commons MenuItem
+                    UCSB Dining Commons Menu Item
                   </Nav.Link>
                   <Nav.Link as={Link} to="/ucsborganizations">
                     UCSB Organizations
