@@ -37,7 +37,7 @@ describe("RecommendationRequestUtils", () => {
       const result = cellToAxiosParamsDelete(cell);
 
       expect(result).toEqual({
-        url: "/api/recommendationrequests",
+        url: "/api/recommendationrequest",
         method: "DELETE",
         params: { id: 42 },
       });

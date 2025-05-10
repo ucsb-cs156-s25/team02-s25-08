@@ -14,11 +14,11 @@ export default function RecommendationRequestEditPage({ storybook = false }) {
     _status,
   } = useBackend(
     // Stryker disable next-line all
-    [`/api/recommendationrequests?id=${id}`],
+    [`/api/recommendationrequest?id=${id}`],
     {
       // Stryker disable next-line all
       method: "GET",
-      url: `/api/recommendationrequests`,
+      url: `/api/recommendationrequest`,
       params: {
         id,
       },
@@ -26,7 +26,7 @@ export default function RecommendationRequestEditPage({ storybook = false }) {
   );
 
   const objectToAxiosPutParams = (recommendationRequest) => ({
-    url: "/api/recommendationrequests",
+    url: "/api/recommendationrequest",
     method: "PUT",
     params: {
       id: recommendationRequest.id,
@@ -51,7 +51,7 @@ export default function RecommendationRequestEditPage({ storybook = false }) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all
-    [`/api/recommendationrequests?id=${id}`],
+    [`/api/recommendationrequest?id=${id}`],
   );
 
   const { isSuccess } = mutation;
@@ -61,7 +61,7 @@ export default function RecommendationRequestEditPage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/recommendationRequest" />;
+    return <Navigate to="/recommendationrequest" />;
   }
 
   return (

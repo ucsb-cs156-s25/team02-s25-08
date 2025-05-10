@@ -37,7 +37,7 @@ describe("RecommendationRequestIndexPage tests", () => {
 
   test("renders without crashing for empty table (user only)", async () => {
     setupUserOnly();
-    axiosMock.onGet("/api/recommendationrequests/all").reply(200, []);
+    axiosMock.onGet("/api/recommendationrequest/all").reply(200, []);
 
     const queryClient = new QueryClient();
     render(
@@ -61,7 +61,7 @@ describe("RecommendationRequestIndexPage tests", () => {
   test("renders four recommendation requests correctly for regular user", async () => {
     setupUserOnly();
     axiosMock
-      .onGet("/api/recommendationrequests/all")
+      .onGet("/api/recommendationrequest/all")
       .reply(200, recommendationRequestFixtures.fourRequests);
 
     const queryClient = new QueryClient();
@@ -90,7 +90,7 @@ describe("RecommendationRequestIndexPage tests", () => {
   test("renders empty table when backend is unavailable (user only)", async () => {
     setupUserOnly();
     const restoreConsole = mockConsole();
-    axiosMock.onGet("/api/recommendationrequests/all").networkError();
+    axiosMock.onGet("/api/recommendationrequest/all").networkError();
 
     const queryClient = new QueryClient();
     render(
@@ -107,7 +107,7 @@ describe("RecommendationRequestIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/recommendationrequests/all",
+      "Error communicating with backend via GET on /api/recommendationrequest/all",
     );
 
     restoreConsole();
@@ -116,9 +116,9 @@ describe("RecommendationRequestIndexPage tests", () => {
   test("admin user sees delete buttons and create button", async () => {
     setupAdminUser();
     axiosMock
-      .onGet("/api/recommendationrequests/all")
+      .onGet("/api/recommendationrequest/all")
       .reply(200, recommendationRequestFixtures.fourRequests);
-    axiosMock.onDelete("/api/recommendationrequests").reply(200, {
+    axiosMock.onDelete("/api/recommendationrequest").reply(200, {
       message: "Recommendation Request with id 1 was deleted",
     });
 
@@ -145,7 +145,7 @@ describe("RecommendationRequestIndexPage tests", () => {
     fireEvent.click(deleteButton);
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
     expect(axiosMock.history.delete[0].url).toContain(
-      "/api/recommendationrequests",
+      "/api/recommendationrequest",
     );
   });
 });
