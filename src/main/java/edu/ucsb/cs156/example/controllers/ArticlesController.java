@@ -75,7 +75,6 @@ public class ArticlesController extends ApiController {
      * @param url the url of the article
      * @param explanation the explanation of the article
      * @param email the email of the submitter
-     * @param dateAdded the date added of the article
      * @return the saved article
      */
     @Operation(summary = "Create a new article")
@@ -85,15 +84,14 @@ public class ArticlesController extends ApiController {
             @Parameter(name="title") @RequestParam String title,
             @Parameter(name="url") @RequestParam String url,
             @Parameter(name="explanation") @RequestParam(required = false) String explanation,
-            @Parameter(name="email") @RequestParam String email,
-            @Parameter(name="dateAdded") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded) {
+            @Parameter(name="email") @RequestParam String email) {
 
         Articles article = new Articles();
         article.setTitle(title);
         article.setUrl(url);
         article.setExplanation(explanation);
         article.setEmail(email);
-        article.setDateAdded(dateAdded);
+        article.setDateAdded(LocalDateTime.now());
 
         Articles savedArticle = articlesRepository.save(article);
 
