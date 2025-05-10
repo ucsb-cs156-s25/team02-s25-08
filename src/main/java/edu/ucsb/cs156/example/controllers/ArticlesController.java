@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * This is a REST controller for Articles
@@ -91,7 +92,7 @@ public class ArticlesController extends ApiController {
         article.setUrl(url);
         article.setExplanation(explanation);
         article.setEmail(email);
-        article.setDateAdded(LocalDateTime.now());
+        article.setDateAdded(LocalDateTime.now().truncatedTo(ChronoUnit.MICROS));
 
         Articles savedArticle = articlesRepository.save(article);
 
