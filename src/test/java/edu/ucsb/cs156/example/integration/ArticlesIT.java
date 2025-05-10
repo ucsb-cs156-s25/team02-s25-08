@@ -94,7 +94,6 @@ public class ArticlesIT {
                                 .url("https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7")
                                 .explanation("Helpful article about testing")
                                 .email("phtcon@ucsb.edu")
-                                .dateAdded(ldt)
                                 .build();
 
                 // act
