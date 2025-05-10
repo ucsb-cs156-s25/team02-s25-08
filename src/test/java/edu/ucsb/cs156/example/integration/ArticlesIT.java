@@ -87,12 +87,14 @@ public class ArticlesIT {
         @Test
         public void an_admin_user_can_post_a_new_article() throws Exception {
                 // arrange
+
                 Articles article1 = Articles.builder()
                                 .id(1L)
                                 .title("Using testing-playground with React Testing Library")
                                 .url("https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7")
                                 .explanation("Helpful article about testing")
                                 .email("phtcon@ucsb.edu")
+                                .dateAdded(ldt)
                                 .build();
 
                 // act
