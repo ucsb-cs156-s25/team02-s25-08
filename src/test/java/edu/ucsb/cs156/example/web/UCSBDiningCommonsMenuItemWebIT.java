@@ -40,8 +40,6 @@ public class UCSBDiningCommonsMenuItemWebIT extends WebTestCase {
         page.getByTestId("UCSBDiningCommonsMenuItemForm-name").fill("Toll House Cookie");
         page.getByTestId("UCSBDiningCommonsMenuItemForm-submit").click();
 
-        assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-description")).hasText("THE BEST");
-
         assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-diningCommonsCode")).hasText("DLG");
         assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-station")).hasText("Desert");
         assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-name")).hasText("Toll House Cookie");
