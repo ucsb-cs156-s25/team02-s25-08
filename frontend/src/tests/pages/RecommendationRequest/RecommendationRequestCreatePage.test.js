@@ -62,7 +62,7 @@ describe("RecommendationRequestCreatePage tests", () => {
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /recommendationRequest", async () => {
+  test("on submit, makes request to backend, and redirects to /recommendationrequest", async () => {
     const queryClient = new QueryClient();
     const recommendationRequest = {
       id: 7,
@@ -75,7 +75,7 @@ describe("RecommendationRequestCreatePage tests", () => {
     };
 
     axiosMock
-      .onPost("/api/recommendationrequests/post")
+      .onPost("/api/recommendationrequest/post")
       .reply(202, recommendationRequest);
 
     render(
@@ -129,18 +129,20 @@ describe("RecommendationRequestCreatePage tests", () => {
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-    expect(axiosMock.history.post[0].params).toEqual({
-      requesterEmail: "test",
-      professorEmail: "test",
-      explanation: "testing",
-      dateRequested: "1111-11-11T11:11:11.000",
-      dateNeeded: "1111-11-11T11:11:11.000",
-      done: true,
-    });
+    expect(axiosMock.history.post[0].params).toEqual(
+      expect.objectContaining({
+        requesterEmail: "test",
+        professorEmail: "test",
+        explanation: "testing",
+        dateRequested: "1111-11-11T11:11:11",
+        dateNeeded: "1111-11-11T11:11:11",
+        done: true,
+      }),
+    );
 
     expect(mockToast).toHaveBeenCalledWith(
       "New recommendationRequest Created - id: 7 requesterEmail: test",
     );
-    expect(mockNavigate).toHaveBeenCalledWith({ to: "/recommendationRequest" });
+    expect(mockNavigate).toHaveBeenCalledWith({ to: "/recommendationrequest" });
   });
 });

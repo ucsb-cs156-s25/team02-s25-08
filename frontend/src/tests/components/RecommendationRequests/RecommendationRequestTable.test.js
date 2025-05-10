@@ -156,7 +156,7 @@ describe("RecommendationRequestTable tests", () => {
 
     await waitFor(() =>
       expect(mockedNavigate).toHaveBeenCalledWith(
-        "/recommendationrequests/edit/1",
+        "/recommendationrequest/edit/1",
       ),
     );
   });
@@ -165,7 +165,7 @@ describe("RecommendationRequestTable tests", () => {
     const currentUser = currentUserFixtures.adminUser;
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/recommendationrequests")
+      .onDelete("/api/recommendationrequest")
       .reply(200, { message: "Deleted" });
 
     render(

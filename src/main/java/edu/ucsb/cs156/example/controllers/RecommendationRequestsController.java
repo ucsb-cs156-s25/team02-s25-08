@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 
 @Tag(name = "RecommendationRequests")
 @RestController
-@RequestMapping("/api/recommendationrequests")
+@RequestMapping("/api/recommendationrequest")
 @Slf4j
 public class RecommendationRequestsController extends ApiController {
 
@@ -38,7 +38,7 @@ public class RecommendationRequestsController extends ApiController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/all")
     public Iterable<RecommendationRequest> allRecommendationRequests() {
-        log.info("GET /api/recommendationrequests/all");
+        log.info("GET /api/recommendationrequest/all");
         return recommendationRequestRepository.findAll();
     }
 
@@ -57,7 +57,7 @@ public class RecommendationRequestsController extends ApiController {
             LocalDateTime dateNeeded,
         @Parameter(name = "done")         @RequestParam boolean done
     ) {
-        log.info("POST /api/recommendationrequests/post");
+        log.info("POST /api/recommendationrequest/post");
         RecommendationRequest req = RecommendationRequest.builder()
             .requesterEmail(requesterEmail)
             .professorEmail(professorEmail)

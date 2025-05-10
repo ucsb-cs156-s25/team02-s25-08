@@ -75,7 +75,7 @@ public class RecommendationRequestIT {
                 requestRepository.save(request);
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/recommendationrequests?id=1"))
+                MvcResult response = mockMvc.perform(get("/api/recommendationrequest?id=1"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
@@ -105,7 +105,7 @@ public class RecommendationRequestIT {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/recommendationrequests/post?requesterEmail=cgaucho@ucsb.edu&professorEmail=phtcon@ucsb.edu&explanation=BS/MS program&dateRequested=2022-04-20T00:00:00&dateNeeded=2022-05-01T00:00:00&done=false")
+                                post("/api/recommendationrequest/post?requesterEmail=cgaucho@ucsb.edu&professorEmail=phtcon@ucsb.edu&explanation=BS/MS program&dateRequested=2022-04-20T00:00:00&dateNeeded=2022-05-01T00:00:00&done=false")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
