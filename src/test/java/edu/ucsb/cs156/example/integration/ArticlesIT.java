@@ -87,17 +87,20 @@ public class ArticlesIT {
         @Test
         public void an_admin_user_can_post_a_new_article() throws Exception {
                 // arrange
+                LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
+
                 Articles article1 = Articles.builder()
                                 .id(1L)
                                 .title("Using testing-playground with React Testing Library")
                                 .url("https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7")
                                 .explanation("Helpful article about testing")
                                 .email("phtcon@ucsb.edu")
+                                .dateAdded(ldt)
                                 .build();
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/articles/post?title=Using testing-playground with React Testing Library&url=https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7&explanation=Helpful article about testing&email=phtcon@ucsb.edu")
+                                post("/api/articles/post?title=Using testing-playground with React Testing Library&url=https://dev.to/katieraby/using-testing-playground-with-react-testing-library-26j7&explanation=Helpful article about testing&email=phtcon@ucsb.edu&dateAdded=2022-01-03T00:00:00")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
