@@ -107,4 +107,5 @@ public class ArticlesIT {
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
+        // test
 }
