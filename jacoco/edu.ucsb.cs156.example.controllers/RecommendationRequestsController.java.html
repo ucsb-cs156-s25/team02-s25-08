@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 
 @Tag(name = &quot;RecommendationRequests&quot;)
 @RestController
-@RequestMapping(&quot;/api/recommendationrequests&quot;)
+@RequestMapping(&quot;/api/recommendationrequest&quot;)
 <span class="fc" id="L31">@Slf4j</span>
 <span class="fc" id="L32">public class RecommendationRequestsController extends ApiController {</span>
 
@@ -38,7 +38,7 @@ import java.time.LocalDateTime;
     @PreAuthorize(&quot;hasRole('USER')&quot;)
     @GetMapping(&quot;/all&quot;)
     public Iterable&lt;RecommendationRequest&gt; allRecommendationRequests() {
-<span class="fc" id="L41">        log.info(&quot;GET /api/recommendationrequests/all&quot;);</span>
+<span class="fc" id="L41">        log.info(&quot;GET /api/recommendationrequest/all&quot;);</span>
 <span class="fc" id="L42">        return recommendationRequestRepository.findAll();</span>
     }
 
@@ -57,7 +57,7 @@ import java.time.LocalDateTime;
             LocalDateTime dateNeeded,
         @Parameter(name = &quot;done&quot;)         @RequestParam boolean done
     ) {
-<span class="fc" id="L60">        log.info(&quot;POST /api/recommendationrequests/post&quot;);</span>
+<span class="fc" id="L60">        log.info(&quot;POST /api/recommendationrequest/post&quot;);</span>
 <span class="fc" id="L61">        RecommendationRequest req = RecommendationRequest.builder()</span>
 <span class="fc" id="L62">            .requesterEmail(requesterEmail)</span>
 <span class="fc" id="L63">            .professorEmail(professorEmail)</span>
