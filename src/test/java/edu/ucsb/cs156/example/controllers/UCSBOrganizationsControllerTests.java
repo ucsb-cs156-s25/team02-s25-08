@@ -148,4 +148,45 @@ public void admin_can_edit_org() throws Exception {
     verify(ucsbOrganizationRepository).save(edited);
     assertEquals(body, res.getResponse().getContentAsString());
 }
+@WithMockUser(roles = { "ADMIN", "USER" })
+@Test
+public void admin_can_delete_org() throws Exception {
+    UCSBOrganization org = UCSBOrganization.builder()
+            .orgCode("ZPR")
+            .orgTranslationShort("ZETA PHI RHO")
+            .orgTranslation("ZETA PHI RHO")
+            .inactive(false)
+            .build();
+
+    when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(org));
+
+    MvcResult res = mockMvc.perform(delete("/api/ucsborganizations?orgCode=ZPR").with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    verify(ucsbOrganizationRepository, times(1)).delete(org);
+    Map<String, Object> json = responseToJson(res);
+    assertEquals("UCSB Organization with id ZPR deleted", json.get("message"));
+}
+
+@WithMockUser(roles = { "USER" })
+@Test
+public void user_can_get_org_by_orgCode_when_it_exists() throws Exception {
+    UCSBOrganization org = UCSBOrganization.builder()
+            .orgCode("ZPR")
+            .orgTranslationShort("ZETA PHI RHO")
+            .orgTranslation("ZETA PHI RHO")
+            .inactive(false)
+            .build();
+
+    when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(org));
+
+    MvcResult res = mockMvc.perform(get("/api/ucsborganizations?orgCode=ZPR"))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    verify(ucsbOrganizationRepository, times(1)).findById("ZPR");
+    assertEquals(mapper.writeValueAsString(org), res.getResponse().getContentAsString());
+}
+
 }
