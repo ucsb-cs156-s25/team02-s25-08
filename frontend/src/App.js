@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
@@ -71,6 +72,7 @@ function App() {
         )}
 
         {/* UCSB Dates */}
+        {/* UCSB Dates */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
         )}
@@ -82,6 +84,30 @@ function App() {
         )}
 
         {/* UCSB Organizations */}
+        {/* UCSB Organizations */}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route
+            exact
+            path="/ucsborganizations"
+            element={<UCSBOrganizationsIndexPage />}
+          />
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/ucsborganizations/create"
+              element={<UCSBOrganizationsCreatePage />}
+            />
+            <Route
+              exact
+              path="/ucsborganizations/edit/:id"
+              element={<UCSBOrganizationsEditPage />}
+            />
+          </>
+        )}
+
+        {/* Recommendation Requests */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/ucsborganizations" element={<UCSBOrganizationsIndexPage />} />
         )}
@@ -104,6 +130,7 @@ function App() {
         )}
 
         {/* Dining Commons Menu Items */}
+        {/* Restaurants */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/ucsbdiningcommonsmenuitem" element={<UCSBDiningCommonsMenuItemIndexPage />} />
         )}
@@ -115,6 +142,7 @@ function App() {
         )}
 
         {/* Articles */}
+        {/* Dining Commons Menu Items */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/articles" element={<ArticlesIndexPage />} />
         )}
@@ -126,6 +154,7 @@ function App() {
         )}
 
         {/* Menu Item Reviews */}
+        {/* Articles */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/menuitemreviews" element={<MenuItemReviewIndexPage />} />
         )}
@@ -137,6 +166,7 @@ function App() {
         )}
 
         {/* Help Request */}
+        {/* Menu Item Reviews */}
         {hasRole(currentUser, "ROLE_USER") && (
           <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
         )}
@@ -144,6 +174,26 @@ function App() {
           <>
             <Route exact path="/helprequest/create" element={<HelpRequestCreatePage />} />
             <Route exact path="/helprequest/edit/:id" element={<HelpRequestEditPage />} />
+          </>
+        )}
+
+        {/* Placeholder */}
+        {/* Help Requests */}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/helprequest/create"
+              element={<HelpRequestCreatePage />}
+            />
+            <Route
+              exact
+              path="/helprequest/edit/:id"
+              element={<HelpRequestEditPage />}
+            />
           </>
         )}
 
