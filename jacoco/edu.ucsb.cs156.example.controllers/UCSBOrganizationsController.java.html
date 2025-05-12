@@ -58,8 +58,8 @@ import jakarta.validation.Valid;
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;&quot;)
     public UCSBOrganization getByOrgCode(@Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode) {
-<span class="fc" id="L61">        return ucsbOrganizationRepository.findById(orgCode)</span>
-<span class="fc" id="L62">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+<span class="pc" id="L61">        return ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="pc" id="L62">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
     }
 
     // ===== UPDATE =====
