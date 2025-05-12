@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -49,9 +49,10 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() =>
-      expect(screen.getByText(/Create UCSB Organization/)).toBeInTheDocument(),
-    );
+    expect(
+      await screen.findByText(/Create UCSB Organization/),
+    ).toBeInTheDocument();
+
     const btn = screen.getByText(/Create UCSB Organization/);
     expect(btn).toHaveAttribute("href", "/ucsborganizations/create");
   });
@@ -70,11 +71,10 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() =>
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-      ).toHaveTextContent("ZPR"),
-    );
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).toHaveTextContent("ZPR");
+
     expect(
       screen.queryByText("Create UCSB Organization"),
     ).not.toBeInTheDocument();
@@ -93,9 +93,8 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() =>
-      expect(axiosMock.history.get.length).toBeGreaterThan(0),
-    );
+    await screen.findByText(/UCSB Organizations/); // generic wait
+
     expect(console.error.mock.calls[0][0]).toMatch(
       "Error communicating with backend via GET on /api/ucsborganizations/all",
     );
@@ -119,16 +118,16 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() =>
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-      ).toHaveTextContent("ZPR"),
-    );
+    expect(
+      await screen.findByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).toHaveTextContent("ZPR");
 
     const delBtn = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     fireEvent.click(delBtn);
 
-    await waitFor(() => expect(mockToast).toHaveBeenCalled());
+    expect(
+      await screen.findByText("UCSB Organization with id ZPR was deleted"),
+    ).toBeInTheDocument();
     expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ZPR" });
   });
 });
