@@ -17,14 +17,15 @@ export default function UCSBOrganizationsCreatePage({ storybook = false }) {
   });
 
   const onSuccess = (org) => {
-    toast(
-      `New UCSB Organization Created — orgCode: ${org.orgCode} orgTranslationShort: ${org.orgTranslationShort}`,
-    );
+    toast(`New organization Created - id: ${org.id} orgCode: ${org.orgCode}`);
   };
 
-  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, [
-    "/api/ucsborganizations/all",
-  ]);
+  const mutation = useBackendMutation(
+    objectToAxiosParams,
+    { onSuccess },
+    // Stryker disable next-line all : hard to test query cache invalidation
+    ["/api/ucsborganizations/all"],
+  );
 
   const { isSuccess } = mutation;
 

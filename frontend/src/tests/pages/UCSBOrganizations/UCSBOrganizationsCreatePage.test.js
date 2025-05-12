@@ -9,22 +9,24 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
+// Mock toast
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {
-  const originalModule = jest.requireActual("react-toastify");
+  const original = jest.requireActual("react-toastify");
   return {
     __esModule: true,
-    ...originalModule,
-    toast: (x) => mockToast(x),
+    ...original,
+    toast: (msg) => mockToast(msg),
   };
 });
 
+// Mock navigation
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => {
-  const originalModule = jest.requireActual("react-router-dom");
+  const original = jest.requireActual("react-router-dom");
   return {
     __esModule: true,
-    ...originalModule,
+    ...original,
     Navigate: (x) => {
       mockNavigate(x);
       return null;
@@ -34,10 +36,11 @@ jest.mock("react-router-dom", () => {
 
 describe("UCSBOrganizationsCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
+  const queryClient = new QueryClient();
 
   beforeEach(() => {
     jest.clearAllMocks();
-    axiosMock.resetHistory();
+    axiosMock.reset();
     axiosMock
       .onGet("/api/currentUser")
       .reply(200, apiCurrentUserFixtures.userOnly);
@@ -45,8 +48,6 @@ describe("UCSBOrganizationsCreatePage tests", () => {
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
   });
-
-  const queryClient = new QueryClient();
 
   test("renders without crashing", async () => {
     render(
@@ -62,7 +63,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /ucsborganizations", async () => {
+  test("on submit, makes request and navigates to /ucsborganizations", async () => {
     const newOrg = {
       orgCode: "ACM",
       orgTranslationShort: "Association Comp Machine",
@@ -89,7 +90,11 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     fireEvent.change(screen.getByLabelText("Org Translation"), {
       target: { value: newOrg.orgTranslation },
     });
-    fireEvent.click(screen.getByLabelText("Inactive")); // toggle checkbox if needed
+
+    const inactiveCheckbox = screen.getByLabelText("Inactive");
+    if (!inactiveCheckbox.checked) {
+      fireEvent.click(inactiveCheckbox);
+    }
 
     fireEvent.click(screen.getByText("Create"));
 
