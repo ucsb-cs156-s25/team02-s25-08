@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
 
-export default function AppNavbar({
-  currentUser,
-  systemInfo,
-  doLogout,
-}) {
+export default function AppNavbar({ currentUser, systemInfo, doLogout }) {
   const currentUrl = window.location.href;
   const oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
 
@@ -65,15 +61,33 @@ export default function AppNavbar({
               {/* Logged-in user links */}
               {currentUser?.loggedIn && (
                 <>
-                  <Nav.Link as={Link} to="/articles">Articles</Nav.Link>
-                  <Nav.Link as={Link} to="/helprequest">Help Requests</Nav.Link>
-                  <Nav.Link as={Link} to="/menuitemreviews">Menu Item Review</Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">Placeholder</Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationrequest">Recommendation Request</Nav.Link>
-                  <Nav.Link as={Link} to="/restaurants">Restaurants</Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdates">UCSB Dates</Nav.Link>
-                  <Nav.Link as={Link} to="/ucsborganizations">UCSB Organizations</Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">UCSB Dining Commons Menu Item</Nav.Link>
+                  <Nav.Link as={Link} to="/articles">
+                    Articles
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/helprequest">
+                    Help Requests
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/menuitemreviews">
+                    Menu Item Review
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/placeholder">
+                    Placeholder
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/recommendationrequest">
+                    Recommendation Request
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/restaurants">
+                    Restaurants
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdates">
+                    UCSB Dates
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsborganizations">
+                    UCSB Organizations
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">
+                    UCSB Dining Commons Menu Item
+                  </Nav.Link>
                 </>
               )}
             </Nav>
