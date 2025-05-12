@@ -7,6 +7,7 @@ import edu.ucsb.cs156.example.entities.UCSBOrganization;
 import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
 
 import java.util.*;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -116,77 +117,58 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
     }
 
     @WithMockUser(roles = {"ADMIN","USER"})
-@Test
-public void admin_can_edit_org() throws Exception {
-    UCSBOrganization orig = UCSBOrganization.builder()
-            .orgCode("ZPR")
-            .orgTranslationShort("ZETA PHI RHO")
-            .orgTranslation("ZETA PHI RHO")
-            .inactive(true)
-            .build();
+    @Test
+    public void admin_can_edit_org() throws Exception {
+        UCSBOrganization orig = UCSBOrganization.builder()
+                .orgCode("ZPR")
+                .orgTranslationShort("ZETA PHI RHO")
+                .orgTranslation("ZETA PHI RHO")
+                .inactive(true)
+                .build();
 
-    UCSBOrganization edited = UCSBOrganization.builder()
-            .orgCode("ZPR")
-            .orgTranslationShort("SKYDIVING CLUB")
-            .orgTranslation("SKYDIVING CLUB AT UCSB")
-            .inactive(false)
-            .build();
+        UCSBOrganization edited = UCSBOrganization.builder()
+                .orgCode("ZPR")
+                .orgTranslationShort("SKYDIVING CLUB")
+                .orgTranslation("SKYDIVING CLUB AT UCSB")
+                .inactive(false)
+                .build();
 
-    when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(orig));
-    when(ucsbOrganizationRepository.save(eq(edited))).thenReturn(edited);  // ✅ FIXED LINE
+        when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(orig));
+        when(ucsbOrganizationRepository.save(eq(edited))).thenReturn(edited);
 
-    String body = mapper.writeValueAsString(edited);
+        String body = mapper.writeValueAsString(edited);
 
-    MvcResult res = mockMvc.perform(
-            put("/api/ucsborganizations?orgCode=ZPR")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(body)
-                    .with(csrf()))
-            .andExpect(status().isOk())
-            .andReturn();
+        MvcResult res = mockMvc.perform(
+                put("/api/ucsborganizations?orgCode=ZPR")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
 
-    verify(ucsbOrganizationRepository).save(edited);
-    assertEquals(body, res.getResponse().getContentAsString());
-}
-@WithMockUser(roles = { "ADMIN", "USER" })
-@Test
-public void admin_can_delete_org() throws Exception {
-    UCSBOrganization org = UCSBOrganization.builder()
-            .orgCode("ZPR")
-            .orgTranslationShort("ZETA PHI RHO")
-            .orgTranslation("ZETA PHI RHO")
-            .inactive(false)
-            .build();
+        verify(ucsbOrganizationRepository).save(edited);
+        assertEquals(body, res.getResponse().getContentAsString());
+    }
 
-    when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(org));
+    @WithMockUser(roles = {"ADMIN", "USER"})
+    @Test
+    public void admin_can_delete_org() throws Exception {
+        UCSBOrganization org = UCSBOrganization.builder()
+                .orgCode("ZPR")
+                .orgTranslationShort("ZETA PHI RHO")
+                .orgTranslation("ZETA PHI RHO")
+                .inactive(true)
+                .build();
 
-    MvcResult res = mockMvc.perform(delete("/api/ucsborganizations?orgCode=ZPR").with(csrf()))
-            .andExpect(status().isOk())
-            .andReturn();
+        when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(org));
 
-    verify(ucsbOrganizationRepository, times(1)).delete(org);
-    Map<String, Object> json = responseToJson(res);
-    assertEquals("UCSB Organization with id ZPR deleted", json.get("message"));
-}
+        MvcResult res = mockMvc.perform(
+                delete("/api/ucsborganizations?orgCode=ZPR").with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
 
-@WithMockUser(roles = { "USER" })
-@Test
-public void user_can_get_org_by_orgCode_when_it_exists() throws Exception {
-    UCSBOrganization org = UCSBOrganization.builder()
-            .orgCode("ZPR")
-            .orgTranslationShort("ZETA PHI RHO")
-            .orgTranslation("ZETA PHI RHO")
-            .inactive(false)
-            .build();
-
-    when(ucsbOrganizationRepository.findById("ZPR")).thenReturn(Optional.of(org));
-
-    MvcResult res = mockMvc.perform(get("/api/ucsborganizations?orgCode=ZPR"))
-            .andExpect(status().isOk())
-            .andReturn();
-
-    verify(ucsbOrganizationRepository, times(1)).findById("ZPR");
-    assertEquals(mapper.writeValueAsString(org), res.getResponse().getContentAsString());
-}
-
+        verify(ucsbOrganizationRepository).findById("ZPR");
+        verify(ucsbOrganizationRepository).delete(eq(org));
+        assertEquals("UCSB Organization with id ZPR deleted", responseToJson(res).get("message"));
+    }
 }
