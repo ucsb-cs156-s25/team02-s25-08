@@ -65,6 +65,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
 
   test("on submit, makes request and navigates to /ucsborganizations", async () => {
     const newOrg = {
+      id: 4,
       orgCode: "ACM",
       orgTranslationShort: "Association Comp Machine",
       orgTranslation: "Association of Computing Machinery",
@@ -100,10 +101,15 @@ describe("UCSBOrganizationsCreatePage tests", () => {
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-    expect(axiosMock.history.post[0].params).toEqual(newOrg);
+    expect(axiosMock.history.post[0].params).toEqual({
+      orgCode: newOrg.orgCode,
+      orgTranslationShort: newOrg.orgTranslationShort,
+      orgTranslation: newOrg.orgTranslation,
+      inactive: newOrg.inactive,
+    });
 
     expect(mockToast).toHaveBeenCalledWith(
-      "New UCSB Organization Created — orgCode: ACM orgTranslationShort: Association Comp Machine",
+      "New organization Created - id: 4 orgCode: ACM",
     );
 
     expect(mockNavigate).toHaveBeenLastCalledWith({ to: "/ucsborganizations" });
