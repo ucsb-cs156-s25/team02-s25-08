@@ -10,11 +10,6 @@ import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
-// === Restaurants ===
-import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
-import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
-import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
-
 // === UCSB Organizations ===
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
