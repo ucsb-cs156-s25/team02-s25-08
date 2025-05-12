@@ -11,7 +11,7 @@ export default function UCSBOrganizationsIndexPage() {
   const { data: ucsborganizations } = useBackend(
     ["/api/ucsborganizations/all"],
     { method: "GET", url: "/api/ucsborganizations/all" },
-    []
+    [],
   );
 
   const createButton = () => {

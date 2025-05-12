@@ -17,13 +17,13 @@ export const Empty = Template.bind({});
 Empty.parameters = {
   msw: [
     http.get("/api/currentUser", () =>
-      HttpResponse.json(apiCurrentUserFixtures.userOnly, { status: 200 })
+      HttpResponse.json(apiCurrentUserFixtures.userOnly, { status: 200 }),
     ),
     http.get("/api/systemInfo", () =>
-      HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 })
+      HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 }),
     ),
     http.get("/api/ucsborganizations/all", () =>
-      HttpResponse.json([], { status: 200 })
+      HttpResponse.json([], { status: 200 }),
     ),
   ],
 };
@@ -32,13 +32,13 @@ export const ThreeItemsOrdinaryUser = Template.bind({});
 ThreeItemsOrdinaryUser.parameters = {
   msw: [
     http.get("/api/currentUser", () =>
-      HttpResponse.json(apiCurrentUserFixtures.userOnly)
+      HttpResponse.json(apiCurrentUserFixtures.userOnly),
     ),
     http.get("/api/systemInfo", () =>
-      HttpResponse.json(systemInfoFixtures.showingNeither)
+      HttpResponse.json(systemInfoFixtures.showingNeither),
     ),
     http.get("/api/ucsborganizations/all", () =>
-      HttpResponse.json(ucsbOrganizationsFixtures.threeUCSBOrganizations)
+      HttpResponse.json(ucsbOrganizationsFixtures.threeUCSBOrganizations),
     ),
   ],
 };
@@ -47,19 +47,19 @@ export const ThreeItemsAdminUser = Template.bind({});
 ThreeItemsAdminUser.parameters = {
   msw: [
     http.get("/api/currentUser", () =>
-      HttpResponse.json(apiCurrentUserFixtures.adminUser)
+      HttpResponse.json(apiCurrentUserFixtures.adminUser),
     ),
     http.get("/api/systemInfo", () =>
-      HttpResponse.json(systemInfoFixtures.showingNeither)
+      HttpResponse.json(systemInfoFixtures.showingNeither),
     ),
     http.get("/api/ucsborganizations/all", () =>
-      HttpResponse.json(ucsbOrganizationsFixtures.threeUCSBOrganizations)
+      HttpResponse.json(ucsbOrganizationsFixtures.threeUCSBOrganizations),
     ),
     http.delete("/api/ucsborganizations", () =>
       HttpResponse.json(
         { message: "UCSB Organization deleted successfully" },
-        { status: 200 }
-      )
+        { status: 200 },
+      ),
     ),
   ],
 };

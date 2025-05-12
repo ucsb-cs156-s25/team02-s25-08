@@ -24,7 +24,12 @@ describe("UCSBOrganizationsIndexPage tests", () => {
     axiosMock.resetHistory();
     axiosMock
       .onGet("/api/currentUser")
-      .reply(200, admin ? apiCurrentUserFixtures.adminUser : apiCurrentUserFixtures.userOnly);
+      .reply(
+        200,
+        admin
+          ? apiCurrentUserFixtures.adminUser
+          : apiCurrentUserFixtures.userOnly,
+      );
     axiosMock
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
@@ -41,28 +46,38 @@ describe("UCSBOrganizationsIndexPage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
-    await waitFor(() => expect(screen.getByText(/Create UCSB Organization/)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(/Create UCSB Organization/)).toBeInTheDocument(),
+    );
     const btn = screen.getByText(/Create UCSB Organization/);
     expect(btn).toHaveAttribute("href", "/ucsborganizations/create");
   });
 
   test("renders three orgs for ordinary user", async () => {
     setupUser(false);
-    axiosMock.onGet("/api/ucsborganizations/all").reply(200, ucsbOrganizationsFixtures.threeUCSBOrganizations);
+    axiosMock
+      .onGet("/api/ucsborganizations/all")
+      .reply(200, ucsbOrganizationsFixtures.threeUCSBOrganizations);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
-    await waitFor(() => expect(screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)).toHaveTextContent("ZPR"));
-    expect(screen.queryByText("Create UCSB Organization")).not.toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      ).toHaveTextContent("ZPR"),
+    );
+    expect(
+      screen.queryByText("Create UCSB Organization"),
+    ).not.toBeInTheDocument();
   });
 
   test("handles backend timeout", async () => {
@@ -75,30 +90,40 @@ describe("UCSBOrganizationsIndexPage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
-    await waitFor(() => expect(axiosMock.history.get.length).toBeGreaterThan(0));
+    await waitFor(() =>
+      expect(axiosMock.history.get.length).toBeGreaterThan(0),
+    );
     expect(console.error.mock.calls[0][0]).toMatch(
-      "Error communicating with backend via GET on /api/ucsborganizations/all"
+      "Error communicating with backend via GET on /api/ucsborganizations/all",
     );
     restore();
   });
 
   test("delete action for admin", async () => {
     setupUser(true);
-    axiosMock.onGet("/api/ucsborganizations/all").reply(200, ucsbOrganizationsFixtures.threeUCSBOrganizations);
-    axiosMock.onDelete("/api/ucsborganizations").reply(200, "UCSB Organization with id ZPR was deleted");
+    axiosMock
+      .onGet("/api/ucsborganizations/all")
+      .reply(200, ucsbOrganizationsFixtures.threeUCSBOrganizations);
+    axiosMock
+      .onDelete("/api/ucsborganizations")
+      .reply(200, "UCSB Organization with id ZPR was deleted");
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
-    await waitFor(() => expect(screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)).toHaveTextContent("ZPR"));
+    await waitFor(() =>
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+      ).toHaveTextContent("ZPR"),
+    );
 
     const delBtn = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     fireEvent.click(delBtn);

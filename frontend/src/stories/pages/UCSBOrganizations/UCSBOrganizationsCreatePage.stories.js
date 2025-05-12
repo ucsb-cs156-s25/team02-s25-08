@@ -17,15 +17,15 @@ export const Default = Template.bind({});
 Default.parameters = {
   msw: [
     http.get("/api/currentUser", () =>
-      HttpResponse.json(apiCurrentUserFixtures.userOnly, { status: 200 })
+      HttpResponse.json(apiCurrentUserFixtures.userOnly, { status: 200 }),
     ),
     http.get("/api/systemInfo", () =>
-      HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 })
+      HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 }),
     ),
     http.post("/api/ucsborganizations/post", () =>
       HttpResponse.json(ucsbOrganizationsFixtures.oneUCSBOrganization, {
         status: 200,
-      })
+      }),
     ),
   ],
 };

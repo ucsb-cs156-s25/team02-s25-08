@@ -18,15 +18,13 @@ export default function UCSBOrganizationsCreatePage({ storybook = false }) {
 
   const onSuccess = (org) => {
     toast(
-      `New UCSB Organization Created — orgCode: ${org.orgCode} orgTranslationShort: ${org.orgTranslationShort}`
+      `New UCSB Organization Created — orgCode: ${org.orgCode} orgTranslationShort: ${org.orgTranslationShort}`,
     );
   };
 
-  const mutation = useBackendMutation(
-    objectToAxiosParams,
-    { onSuccess },
-    ["/api/ucsborganizations/all"]
-  );
+  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, [
+    "/api/ucsborganizations/all",
+  ]);
 
   const { isSuccess } = mutation;
 

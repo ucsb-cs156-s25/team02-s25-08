@@ -54,7 +54,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
@@ -70,16 +70,14 @@ describe("UCSBOrganizationsCreatePage tests", () => {
       inactive: false,
     };
 
-    axiosMock
-      .onPost("/api/ucsborganizations/post")
-      .reply(202, newOrg);
+    axiosMock.onPost("/api/ucsborganizations/post").reply(202, newOrg);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     fireEvent.change(screen.getByLabelText("Org Code"), {
@@ -100,7 +98,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
     expect(axiosMock.history.post[0].params).toEqual(newOrg);
 
     expect(mockToast).toHaveBeenCalledWith(
-      "New UCSB Organization Created — orgCode: ACM orgTranslationShort: Association Comp Machine"
+      "New UCSB Organization Created — orgCode: ACM orgTranslationShort: Association Comp Machine",
     );
 
     expect(mockNavigate).toHaveBeenLastCalledWith({ to: "/ucsborganizations" });
