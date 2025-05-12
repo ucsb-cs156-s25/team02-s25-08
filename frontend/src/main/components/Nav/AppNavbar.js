@@ -3,24 +3,14 @@ import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
 
-/**
- * AppNavbar — same behavior as the instructor version, but with your pluralized
- * route/component names preserved (e.g., `/ucsborganizations`).
- */
 export default function AppNavbar({
   currentUser,
   systemInfo,
   doLogout,
-  currentUrl = window.location.href,
 }) {
+  const currentUrl = window.location.href;
   const oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
 
-  /**
-   * Local‑host banner
-   * ──────────────────
-   * The banner that shows the React + Spring ports when you are running on
-   * localhost is preserved exactly from the instructor code.
-   */
   const showLocalhostBanner =
     currentUrl.startsWith("http://localhost:3000") ||
     currentUrl.startsWith("http://127.0.0.1:3000");
@@ -44,7 +34,7 @@ export default function AppNavbar({
 
           <Navbar.Toggle />
 
-          {/* Left‑hand utility links */}
+          {/* Left-hand utility links */}
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
               <Nav.Link href="/h2-console">H2Console</Nav.Link>
@@ -61,7 +51,7 @@ export default function AppNavbar({
           <Navbar.Collapse className="justify-content-between">
             {/* Center/left navigation */}
             <Nav className="mr-auto">
-              {/* ===== Admin dropdown ===== */}
+              {/* Admin dropdown */}
               {hasRole(currentUser, "ROLE_ADMIN") && (
                 <NavDropdown
                   title="Admin"
@@ -72,29 +62,23 @@ export default function AppNavbar({
                 </NavDropdown>
               )}
 
-              {/* ===== Logged‑in user links ===== */}
+              {/* Logged-in user links */}
               {currentUser?.loggedIn && (
                 <>
-                  <Nav.Link as={Link} to="/restaurants">
-                    Restaurants
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsbdates">
-                    UCSB Dates
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/recommendationrequest">
-                    Recommendation Request
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/placeholder">
-                    Placeholder
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/ucsborganizations">
-                    UCSB Organizations
-                  </Nav.Link>
+                  <Nav.Link as={Link} to="/articles">Articles</Nav.Link>
+                  <Nav.Link as={Link} to="/helprequest">Help Requests</Nav.Link>
+                  <Nav.Link as={Link} to="/menuitemreviews">Menu Item Review</Nav.Link>
+                  <Nav.Link as={Link} to="/placeholder">Placeholder</Nav.Link>
+                  <Nav.Link as={Link} to="/recommendationrequest">Recommendation Request</Nav.Link>
+                  <Nav.Link as={Link} to="/restaurants">Restaurants</Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdates">UCSB Dates</Nav.Link>
+                  <Nav.Link as={Link} to="/ucsborganizations">UCSB Organizations</Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">UCSB Dining Commons Menu Item</Nav.Link>
                 </>
               )}
             </Nav>
 
-            {/* Right‑side auth / profile controls */}
+            {/* Right-side auth / profile controls */}
             <Nav className="ml-auto">
               {currentUser?.loggedIn ? (
                 <>

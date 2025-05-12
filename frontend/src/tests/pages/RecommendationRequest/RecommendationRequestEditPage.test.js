@@ -47,7 +47,7 @@ describe("RecommendationRequestEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/recommendationRequest", { params: { id: 17 } })
+        .onGet("/api/recommendationrequest", { params: { id: 17 } })
         .timeout();
     });
 
@@ -86,7 +86,7 @@ describe("RecommendationRequestEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/recommendationRequest", { params: { id: 17 } })
+        .onGet("/api/recommendationrequest", { params: { id: 17 } })
         .reply(200, {
           id: 17,
           requesterEmail: "test",
@@ -96,7 +96,7 @@ describe("RecommendationRequestEditPage tests", () => {
           dateNeeded: "1111-11-11T11:11:12",
           done: true,
         });
-      axiosMock.onPut("/api/recommendationRequest").reply(200, {
+      axiosMock.onPut("/api/recommendationrequest").reply(200, {
         id: "17",
         requesterEmail: "best",
         professorEmail: "best",
@@ -161,7 +161,7 @@ describe("RecommendationRequestEditPage tests", () => {
       );
 
       expect(mockNavigate).toHaveBeenCalledWith({
-        to: "/recommendationRequest",
+        to: "/recommendationrequest",
       });
 
       expect(axiosMock.history.put.length).toBe(1);

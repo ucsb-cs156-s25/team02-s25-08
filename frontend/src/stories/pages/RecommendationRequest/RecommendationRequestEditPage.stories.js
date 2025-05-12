@@ -22,12 +22,12 @@ Default.parameters = {
     http.get("/api/systemInfo", () =>
       HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 }),
     ),
-    http.get("/api/recommendationRequest", () =>
+    http.get("/api/recommendationrequests", () =>
       HttpResponse.json(recommendationRequestsFixtures.fourRequests[0], {
         status: 200,
       }),
     ),
-    http.put("/api/recommendationRequest", () =>
+    http.put("/api/recommendationrequests", () =>
       HttpResponse.json({}, { status: 200 }),
     ),
   ],

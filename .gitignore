@@ -51,6 +51,3 @@ build/
 ### Local Configuration ###
 .env
 .DS_Store
-node_modules/
-.stryker-tmp/
-reports/mutation/

@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 
 export default function RecommendationRequestCreatePage({ storybook = false }) {
   const objectToAxiosParams = (recommendationRequest) => ({
-    url: "/api/recommendationRequest/post",
+    url: "/api/recommendationrequest/post",
     method: "POST",
     params: {
       requesterEmail: recommendationRequest.requesterEmail,
       professorEmail: recommendationRequest.professorEmail,
       explanation: recommendationRequest.explanation,
-      dateRequested: `${recommendationRequest.dateRequested}.000`,
-      dateNeeded: `${recommendationRequest.dateNeeded}.000`,
+      dateRequested: recommendationRequest.dateRequested,
+      dateNeeded: recommendationRequest.dateNeeded,
       done: recommendationRequest.done,
     },
   });
@@ -28,7 +28,7 @@ export default function RecommendationRequestCreatePage({ storybook = false }) {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/recommendationRequest/all"],
+    ["/api/recommendationrequests/all"],
   );
 
   const { isSuccess } = mutation;
@@ -38,7 +38,7 @@ export default function RecommendationRequestCreatePage({ storybook = false }) {
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/recommendationRequest" />;
+    return <Navigate to="/recommendationrequest" />;
   }
 
   return (
