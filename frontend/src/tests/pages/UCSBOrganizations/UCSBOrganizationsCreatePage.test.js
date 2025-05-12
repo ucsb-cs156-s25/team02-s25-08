@@ -67,7 +67,7 @@ describe("UCSBOrganizationsCreatePage tests", () => {
       orgCode: "ACM",
       orgTranslationShort: "Association Comp Machine",
       orgTranslation: "Association of Computing Machinery",
-      inactive: false,
+      inactive: true,
     };
 
     axiosMock.onPost("/api/ucsborganizations/post").reply(202, newOrg);

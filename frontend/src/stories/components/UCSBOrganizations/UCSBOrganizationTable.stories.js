@@ -1,29 +1,45 @@
 import React from "react";
-import UCSBOrganizationsForm from "main/components/UCSBOrganizations/UCSBOrganizationsForm";
+import UCSBOrganizationsTable from "main/components/UCSBOrganizations/UCSBOrganizationsTable";
 import { ucsbOrganizationsFixtures } from "fixtures/ucsbOrganizationsFixtures";
+import { currentUserFixtures } from "fixtures/currentUserFixtures";
+import { http, HttpResponse } from "msw";
 
 export default {
-  title: "components/UCSBOrganizations/UCSBOrganizationsForm",
-  component: UCSBOrganizationsForm,
+  title: "components/UCSBOrganizations/UCSBOrganizationsTable",
+  component: UCSBOrganizationsTable,
 };
 
-const Template = (args) => <UCSBOrganizationsForm {...args} />;
-
-export const Create = Template.bind({});
-Create.args = {
-  buttonLabel: "Create",
-  submitAction: (data) => {
-    console.log("Submit was clicked with data: ", data);
-    window.alert("Submit was clicked with data: " + JSON.stringify(data));
-  },
+const Template = (args) => {
+  return <UCSBOrganizationsTable {...args} />;
 };
 
-export const Update = Template.bind({});
-Update.args = {
-  initialContents: ucsbOrganizationsFixtures.oneUCSBOrganization,
-  buttonLabel: "Update",
-  submitAction: (data) => {
-    console.log("Submit was clicked with data: ", data);
-    window.alert("Submit was clicked with data: " + JSON.stringify(data));
-  },
+export const Empty = Template.bind({});
+
+Empty.args = {
+  UCSBOrganizations: [],
+  currentUser: currentUserFixtures.userOnly,
+};
+
+export const ThreeItemsOrdinaryUser = Template.bind({});
+
+ThreeItemsOrdinaryUser.args = {
+  UCSBOrganizations: ucsbOrganizationsFixtures.threeUCSBOrganizations,
+  currentUser: currentUserFixtures.userOnly,
+};
+
+export const ThreeItemsAdminUser = Template.bind({});
+ThreeItemsAdminUser.args = {
+  UCSBOrganizations: ucsbOrganizationsFixtures.threeUCSBOrganizations,
+  currentUser: currentUserFixtures.adminUser,
+};
+
+ThreeItemsAdminUser.parameters = {
+  msw: [
+    http.delete("/api/ucsborganizations", () => {
+      return HttpResponse.json(
+        { message: "UCSBOrganizations deleted successfully" },
+        { status: 200 },
+      );
+    }),
+  ],
 };

@@ -40,7 +40,7 @@ describe("UCSBOrganizationsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsTable
-            ucsborganizations={[]}
+            UCSBOrganizations={[]}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -65,7 +65,7 @@ describe("UCSBOrganizationsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsTable
-            ucsborganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -106,7 +106,7 @@ describe("UCSBOrganizationsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsTable
-            ucsborganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -138,7 +138,7 @@ describe("UCSBOrganizationsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsTable
-            ucsborganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -167,7 +167,7 @@ describe("UCSBOrganizationsTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBOrganizationsTable
-            ucsborganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
+            UCSBOrganizations={ucsbOrganizationsFixtures.threeUCSBOrganizations}
             currentUser={currentUser}
           />
         </MemoryRouter>

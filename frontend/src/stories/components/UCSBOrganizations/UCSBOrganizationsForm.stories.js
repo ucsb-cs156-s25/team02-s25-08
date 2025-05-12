@@ -7,7 +7,9 @@ export default {
   component: UCSBOrganizationsForm,
 };
 
-const Template = (args) => <UCSBOrganizationsForm {...args} />;
+const Template = (args) => {
+  return <UCSBOrganizationsForm {...args} />;
+};
 
 export const Create = Template.bind({});
 Create.args = {

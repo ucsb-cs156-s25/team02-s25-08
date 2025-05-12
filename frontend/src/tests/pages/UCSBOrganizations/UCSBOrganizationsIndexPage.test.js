@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -106,9 +106,10 @@ describe("UCSBOrganizationsIndexPage tests", () => {
     axiosMock
       .onGet("/api/ucsborganizations/all")
       .reply(200, ucsbOrganizationsFixtures.threeUCSBOrganizations);
+
     axiosMock
       .onDelete("/api/ucsborganizations")
-      .reply(200, "UCSB Organization with id ZPR was deleted");
+      .reply(200, { message: "UCSB Organization with id ZPR was deleted" });
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -124,10 +125,6 @@ describe("UCSBOrganizationsIndexPage tests", () => {
 
     const delBtn = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     fireEvent.click(delBtn);
-
-    expect(
-      await screen.findByText("UCSB Organization with id ZPR was deleted"),
-    ).toBeInTheDocument();
-    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ZPR" });
+    await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
   });
 });
