@@ -135,11 +135,9 @@ describe("UCSBOrganizationsIndexPage tests", () => {
     fireEvent.click(delBtn);
 
     await waitFor(() => {
-      expect(mockToast).toHaveBeenCalledWith(
-        {
-          "message": "UCSB Organization with id ZPR was deleted",
-        }
-      );
+      expect(mockToast).toHaveBeenCalledWith({
+        message: "UCSB Organization with id ZPR was deleted",
+      });
     });
 
     expect(axiosMock.history.delete.length).toBe(1);
