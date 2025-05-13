@@ -3,21 +3,21 @@ import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
-import AdminUsersIndexPage from "main/pages/AdminUsers/AdminUsersIndexPage";
+import AdminUsersIndexPage from "main/pages/AdminUsersPage";
 
 import UCSBOrganizationsIndexPage from "main/pages/UCSBOrganizations/UCSBOrganizationsIndexPage";
 import UCSBOrganizationsCreatePage from "main/pages/UCSBOrganizations/UCSBOrganizationsCreatePage";
 import UCSBOrganizationsEditPage from "main/pages/UCSBOrganizations/UCSBOrganizationsEditPage";
 
-import RestaurantsIndexPage from "main/pages/Restaurants/RestaurantsIndexPage";
-import RestaurantsCreatePage from "main/pages/Restaurants/RestaurantsCreatePage";
-import RestaurantsEditPage from "main/pages/Restaurants/RestaurantsEditPage";
+import RestaurantsIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
+import RestaurantsCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
+import RestaurantsEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
 import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
-import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+import HelpRequestsIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
 
 function App() {
   return (
