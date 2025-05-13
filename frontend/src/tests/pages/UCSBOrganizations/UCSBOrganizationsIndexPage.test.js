@@ -103,7 +103,7 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await screen.findByText("UCSB Organizations");
+    await screen.findAllByText("UCSB Organizations");
 
     expect(console.error).toHaveBeenCalled();
     expect(console.error.mock.calls[0][0]).toMatch(
@@ -136,7 +136,9 @@ describe("UCSBOrganizationsIndexPage tests", () => {
 
     await waitFor(() => {
       expect(mockToast).toHaveBeenCalledWith(
-        "UCSB Organization with id ZPR was deleted",
+        {
+          "message": "UCSB Organization with id ZPR was deleted",
+        }
       );
     });
 
