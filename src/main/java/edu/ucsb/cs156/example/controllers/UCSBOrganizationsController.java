@@ -31,8 +31,9 @@ public class UCSBOrganizationsController extends ApiController {
     @Operation(summary = "List all UCSB organizations")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<UCSBOrganization> all() {
-        return ucsbOrganizationRepository.findAll();
+    public Iterable<UCSBOrganization> allOrganizations() {
+        Iterable<UCSBOrganization> orgs = ucsbOrganizationRepository.findAll();
+        return orgs;
     }
 
     // ===== CREATE =====
@@ -76,7 +77,9 @@ public class UCSBOrganizationsController extends ApiController {
         org.setOrgTranslationShort(incoming.getOrgTranslationShort());
         org.setOrgTranslation(incoming.getOrgTranslation());
         org.setInactive(incoming.getInactive());
-        return ucsbOrganizationRepository.save(org);
+        ucsbOrganizationRepository.save(org);
+
+        return org;
     }
 
     // ===== DELETE =====
