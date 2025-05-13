@@ -11,22 +11,22 @@ import mockConsole from "jest-mock-console";
 
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {
-  const originalModule = jest.requireActual("react-toastify");
-  return { __esModule: true, ...originalModule, toast: (x) => mockToast(x) };
+  const original = jest.requireActual("react-toastify");
+  return { __esModule: true, ...original, toast: (x) => mockToast(x) };
 });
 
 describe("UCSBOrganizationsIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
   const testId = "UCSBOrganizationsTable";
 
-  const setupUser = (admin = false) => {
+  const setupUser = (isAdmin = false) => {
     axiosMock.reset();
     axiosMock.resetHistory();
     axiosMock
       .onGet("/api/currentUser")
       .reply(
         200,
-        admin
+        isAdmin
           ? apiCurrentUserFixtures.adminUser
           : apiCurrentUserFixtures.userOnly,
       );
@@ -37,7 +37,7 @@ describe("UCSBOrganizationsIndexPage tests", () => {
 
   const queryClient = new QueryClient();
 
-  test("shows create button for admin user", async () => {
+  test("shows Create button for admin user", async () => {
     setupUser(true);
     axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
 
@@ -49,15 +49,13 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(
-      await screen.findByText(/Create UCSB Organization/),
-    ).toBeInTheDocument();
-
-    const btn = screen.getByText(/Create UCSB Organization/);
-    expect(btn).toHaveAttribute("href", "/ucsborganizations/create");
+    const button = await screen.findByText(/Create UCSB Organization/);
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute("href", "/ucsborganizations/create");
+    expect(button).toHaveStyle("float: right;");
   });
 
-  test("renders three orgs for ordinary user", async () => {
+  test("renders three orgs for regular user with no Create/Delete/Edit", async () => {
     setupUser(false);
     axiosMock
       .onGet("/api/ucsborganizations/all")
@@ -74,16 +72,28 @@ describe("UCSBOrganizationsIndexPage tests", () => {
     expect(
       await screen.findByTestId(`${testId}-cell-row-0-col-orgCode`),
     ).toHaveTextContent("ZPR");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
+    ).toHaveTextContent("KRC");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-2-col-orgCode`),
+    ).toHaveTextContent("OSLI");
 
     expect(
-      screen.queryByText("Create UCSB Organization"),
+      screen.queryByText(/Create UCSB Organization/),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`),
     ).not.toBeInTheDocument();
   });
 
-  test("handles backend timeout", async () => {
+  test("renders empty table with console error on timeout", async () => {
     setupUser(false);
     axiosMock.onGet("/api/ucsborganizations/all").timeout();
-    const restore = mockConsole();
+    const restoreConsole = mockConsole();
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -93,20 +103,20 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await screen.findByText(/UCSB Organizations/); // generic wait
+    await screen.findAllByText("UCSB Organizations");
 
+    expect(console.error).toHaveBeenCalled();
     expect(console.error.mock.calls[0][0]).toMatch(
       "Error communicating with backend via GET on /api/ucsborganizations/all",
     );
-    restore();
+    restoreConsole();
   });
 
-  test("delete action for admin", async () => {
+  test("admin can delete an org and toast shows message", async () => {
     setupUser(true);
     axiosMock
       .onGet("/api/ucsborganizations/all")
       .reply(200, ucsbOrganizationsFixtures.threeUCSBOrganizations);
-
     axiosMock
       .onDelete("/api/ucsborganizations")
       .reply(200, { message: "UCSB Organization with id ZPR was deleted" });
@@ -119,12 +129,18 @@ describe("UCSBOrganizationsIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(
-      await screen.findByTestId(`${testId}-cell-row-0-col-orgCode`),
-    ).toHaveTextContent("ZPR");
-
-    const delBtn = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    const delBtn = await screen.findByTestId(
+      `${testId}-cell-row-0-col-Delete-button`,
+    );
     fireEvent.click(delBtn);
-    await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
+
+    await waitFor(() => {
+      expect(mockToast).toHaveBeenCalledWith({
+        message: "UCSB Organization with id ZPR was deleted",
+      });
+    });
+
+    expect(axiosMock.history.delete.length).toBe(1);
+    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ZPR" });
   });
 });

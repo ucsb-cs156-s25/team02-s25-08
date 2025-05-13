@@ -3,17 +3,20 @@ import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
 
-export default function AppNavbar({ currentUser, systemInfo, doLogout }) {
-  const currentUrl = window.location.href;
+export default function AppNavbar({
+  currentUser,
+  systemInfo,
+  doLogout,
+  currentUrl = window.location.href,
+}) {
   const oauthLogin = systemInfo?.oauthLogin || "/oauth2/authorization/google";
-
-  const showLocalhostBanner =
-    currentUrl.startsWith("http://localhost:3000") ||
-    currentUrl.startsWith("http://127.0.0.1:3000");
 
   return (
     <>
-      {showLocalhostBanner && <AppNavbarLocalhost url={currentUrl} />}
+      {(currentUrl.startsWith("http://localhost:3000") ||
+        currentUrl.startsWith("http://127.0.0.1:3000")) && (
+        <AppNavbarLocalhost url={currentUrl} />
+      )}
 
       <Navbar
         expand="xl"
@@ -23,14 +26,12 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout }) {
         data-testid="AppNavbar"
       >
         <Container>
-          {/* Brand */}
           <Navbar.Brand as={Link} to="/">
             Example
           </Navbar.Brand>
 
           <Navbar.Toggle />
 
-          {/* Left-hand utility links */}
           <Nav className="me-auto">
             {systemInfo?.springH2ConsoleEnabled && (
               <Nav.Link href="/h2-console">H2Console</Nav.Link>
@@ -40,14 +41,8 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout }) {
             )}
           </Nav>
 
-          {/* Spacer for future NavDropdowns */}
-          <></>
-
-          {/* Main navigation and auth controls */}
           <Navbar.Collapse className="justify-content-between">
-            {/* Center/left navigation */}
             <Nav className="mr-auto">
-              {/* Admin dropdown */}
               {hasRole(currentUser, "ROLE_ADMIN") && (
                 <NavDropdown
                   title="Admin"
@@ -58,7 +53,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout }) {
                 </NavDropdown>
               )}
 
-              {/* Logged-in user links */}
               {currentUser?.loggedIn && (
                 <>
                   <Nav.Link as={Link} to="/articles">
@@ -92,7 +86,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout }) {
               )}
             </Nav>
 
-            {/* Right-side auth / profile controls */}
             <Nav className="ml-auto">
               {currentUser?.loggedIn ? (
                 <>
