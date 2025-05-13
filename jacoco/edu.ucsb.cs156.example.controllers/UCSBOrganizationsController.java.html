@@ -31,8 +31,9 @@ import jakarta.validation.Valid;
     @Operation(summary = &quot;List all UCSB organizations&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;/all&quot;)
-    public Iterable&lt;UCSBOrganization&gt; all() {
-<span class="fc" id="L35">        return ucsbOrganizationRepository.findAll();</span>
+    public Iterable&lt;UCSBOrganization&gt; allOrganizations() {
+<span class="fc" id="L35">        Iterable&lt;UCSBOrganization&gt; orgs = ucsbOrganizationRepository.findAll();</span>
+<span class="fc" id="L36">        return orgs;</span>
     }
 
     // ===== CREATE =====
@@ -45,12 +46,12 @@ import jakarta.validation.Valid;
             @Parameter(name = &quot;orgTranslation&quot;) @RequestParam String orgTranslation,
             @Parameter(name = &quot;inactive&quot;) @RequestParam Boolean inactive) {
 
-<span class="fc" id="L48">        UCSBOrganization org = new UCSBOrganization();</span>
-<span class="fc" id="L49">        org.setOrgCode(orgCode);</span>
-<span class="fc" id="L50">        org.setOrgTranslationShort(orgTranslationShort);</span>
-<span class="fc" id="L51">        org.setOrgTranslation(orgTranslation);</span>
-<span class="fc" id="L52">        org.setInactive(inactive);</span>
-<span class="fc" id="L53">        return ucsbOrganizationRepository.save(org);</span>
+<span class="fc" id="L49">        UCSBOrganization org = new UCSBOrganization();</span>
+<span class="fc" id="L50">        org.setOrgCode(orgCode);</span>
+<span class="fc" id="L51">        org.setOrgTranslationShort(orgTranslationShort);</span>
+<span class="fc" id="L52">        org.setOrgTranslation(orgTranslation);</span>
+<span class="fc" id="L53">        org.setInactive(inactive);</span>
+<span class="fc" id="L54">        return ucsbOrganizationRepository.save(org);</span>
     }
 
     // ===== READ =====
@@ -58,8 +59,8 @@ import jakarta.validation.Valid;
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;&quot;)
     public UCSBOrganization getByOrgCode(@Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode) {
-<span class="fc" id="L61">        return ucsbOrganizationRepository.findById(orgCode)</span>
-<span class="fc" id="L62">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+<span class="fc" id="L62">        return ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L63">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
     }
 
     // ===== UPDATE =====
@@ -70,13 +71,15 @@ import jakarta.validation.Valid;
             @Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode,
             @RequestBody @Valid UCSBOrganization incoming) {
 
-<span class="fc" id="L73">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
-<span class="fc" id="L74">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+<span class="fc" id="L74">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L75">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
 
-<span class="fc" id="L76">        org.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
-<span class="fc" id="L77">        org.setOrgTranslation(incoming.getOrgTranslation());</span>
-<span class="fc" id="L78">        org.setInactive(incoming.getInactive());</span>
-<span class="fc" id="L79">        return ucsbOrganizationRepository.save(org);</span>
+<span class="fc" id="L77">        org.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
+<span class="fc" id="L78">        org.setOrgTranslation(incoming.getOrgTranslation());</span>
+<span class="fc" id="L79">        org.setInactive(incoming.getInactive());</span>
+<span class="fc" id="L80">        ucsbOrganizationRepository.save(org);</span>
+
+<span class="fc" id="L82">        return org;</span>
     }
 
     // ===== DELETE =====
@@ -84,10 +87,10 @@ import jakarta.validation.Valid;
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @DeleteMapping(&quot;&quot;)
     public Object delete(@Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode) {
-<span class="fc" id="L87">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
-<span class="fc" id="L88">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
-<span class="fc" id="L89">        ucsbOrganizationRepository.delete(org);</span>
-<span class="fc" id="L90">        return genericMessage(&quot;UCSB Organization with id %s deleted&quot;.formatted(orgCode));</span>
+<span class="fc" id="L90">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L91">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+<span class="fc" id="L92">        ucsbOrganizationRepository.delete(org);</span>
+<span class="fc" id="L93">        return genericMessage(&quot;UCSB Organization with id %s deleted&quot;.formatted(orgCode));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
