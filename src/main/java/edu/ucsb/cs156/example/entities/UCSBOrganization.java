@@ -1,6 +1,8 @@
 package edu.ucsb.cs156.example.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
@@ -16,6 +18,7 @@ import lombok.*;
 @Entity(name = "ucsborganization")
 public class UCSBOrganization {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String orgCode;  
 
     private String orgTranslationShort;
